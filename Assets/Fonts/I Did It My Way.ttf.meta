@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 383bfd2ac41516d4a8be76f02600f581
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - I Did It My Way
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b3fc2e12b29b2114e88a467c2ec65332, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
