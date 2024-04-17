@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: parasitezombie_Material
-    second: {fileID: -8365658789635416999, guid: 631762b9a30b33a42836730a6b37d13f, type: 3}
+    second: {fileID: 9034040193485772877, guid: 7007c3afcf10e4949b6cf4bc8e668fe6, type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
