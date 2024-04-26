@@ -6,6 +6,7 @@ public class InstructionsScript : MonoBehaviour
 {
     public GameObject instructionsCanvas;
     public GameObject controllerInstructions;
+    public GameObject MandKInstructions;
 
     private void Update()
     {
@@ -18,23 +19,26 @@ public class InstructionsScript : MonoBehaviour
     public void OpenInstructions()
     {
         instructionsCanvas.SetActive(true);
+        MandKInstructions.SetActive(true);
+        controllerInstructions.SetActive(false);
     }
 
     public void CloseInstructions()
     {
         instructionsCanvas.SetActive(false);
+        MandKInstructions.SetActive(false);
+        controllerInstructions.SetActive(false);
     }
 
     public void SwitchToControllerInstructions()
     {
-        instructionsCanvas.SetActive(false);
+        MandKInstructions.SetActive(false);
         controllerInstructions.SetActive(true);
     }
 
     public void SwitchToMandKInstructions()
     {
-        instructionsCanvas.SetActive(true);
+        MandKInstructions.SetActive(true);
         controllerInstructions.SetActive(false);
     }
-
 }
