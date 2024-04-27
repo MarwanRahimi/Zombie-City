@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 900c1f912060f2b4f9f43a6c9de16432
+guid: 213a919067006fe4abf1f715b94f421e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -24,7 +24,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Player_Walk_Forward
+      name: Idle
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -737,8 +737,7 @@ ModelImporter:
     - name: mixamorig:RightHand
       parentName: mixamorig:RightForeArm
       position: {x: -6.9277914e-16, y: 0.26395056, z: 1.1084466e-14}
-      rotation: {x: -0.000000014930263, y: -0.000000014690157, z: -0.0000000018896882,
-        w: 1}
+      rotation: {x: -0.000000014930263, y: -0.000000014690157, z: -0.0000000018896882, w: 1}
       scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
     - name: mixamorig:RightHandThumb1
       parentName: mixamorig:RightHand
@@ -902,8 +901,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7007c3afcf10e4949b6cf4bc8e668fe6,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 7007c3afcf10e4949b6cf4bc8e668fe6, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
