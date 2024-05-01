@@ -6,6 +6,9 @@ public class Vehicle : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _currPrompt;
     public string Prompt => _currPrompt;
+    private bool hasUsedWrench = false;
+    private bool hasUsedWheel = false;
+
 
     public bool Interact(Interactor interactor)
     {
@@ -15,16 +18,35 @@ public class Vehicle : MonoBehaviour, IInteractable
             return false;
         }
 
-        if(inventory.hasWrench)
+        if (!hasUsedWrench && inventory.hasWrench)
         {
-        Debug.Log("Using wrench");
-        inventory.hasWrench = false;
-        return true;
+            Debug.Log("Using wrench");
+            inventory.hasWrench = false;
+            hasUsedWrench = true;
+            return true;
+        }
+        else if (hasUsedWrench && inventory.hasWheel)
+        {
+            Debug.Log("Using wheel");
+            inventory.hasWheel = false;
+            hasUsedWheel = true;
+            return true;
+        }
+        else if (hasUsedWheel && inventory.hasArmor)
+        {
+            Debug.Log("Using armor");
+            inventory.hasArmor = false;
+            return true;
         }
 
+
+        //Debug.Log("Using wheel");
+        //Debug.Log("Using armor");
         Debug.Log("Find a repair tool!");
         return false;
+
+
     }
 
- 
+
 }

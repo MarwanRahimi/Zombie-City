@@ -8,6 +8,8 @@ public class PlayerInventory : MonoBehaviour
 
     private Transform weaponSocket;
     public bool hasWrench = false;
+    public bool hasWheel = false;
+    public bool hasArmor = false;
     //public bool hasInflator = false;
 
     public bool PickupWeapon(Transform weaponToPickup)
