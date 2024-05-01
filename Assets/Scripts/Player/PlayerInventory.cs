@@ -7,6 +7,9 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]
 
     private Transform weaponSocket;
+    public bool hasWrench = false;
+    //public bool hasInflator = false;
+
     public bool PickupWeapon(Transform weaponToPickup)
     {
         if (weaponSocket)
