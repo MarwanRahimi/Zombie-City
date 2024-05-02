@@ -15,11 +15,11 @@ public class Interactor : MonoBehaviour
     {
         _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionRadius, _colliders, _interactable);
 
-        if(_numFound > 0)
+        if (_numFound > 0)
         {
             var interactable = _colliders[0].GetComponent<IInteractable>();
 
-            if (interactable != null && Keyboard.current.fKey.wasPressedThisFrame) //Add joystick button for interaction later
+            if (interactable != null && Input.GetKeyDown(KeyCode.F))
             {
                 interactable.Interact(this);
             }
