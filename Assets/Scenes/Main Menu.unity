@@ -340,7 +340,7 @@ AudioSource:
   m_GameObject: {fileID: 116491086}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -597665505328197751, guid: 235689dac2060684583f6902c5834727, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1339,18 +1339,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: InstructionsScript, Assembly-CSharp
-          m_MethodName: ShowStartGamePanel
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -1358,18 +1346,6 @@ MonoBehaviour:
         - m_Target: {fileID: 375338255}
           m_TargetAssemblyTypeName: ButtonAnimation, Assembly-CSharp
           m_MethodName: OnPointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: InstructionsScript, Assembly-CSharp
-          m_MethodName: HideStartGamePanel
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1818,8 +1794,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 697532680}
   - {fileID: 116491088}
+  - {fileID: 697532680}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1927,7 +1903,7 @@ AudioSource:
   m_GameObject: {fileID: 697532678}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2262282827649050546, guid: 235689dac2060684583f6902c5834727, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
