@@ -4,25 +4,63 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class OptionScript : MonoBehaviour
 {
-    public Toggle fullscreenToggle, vsyncToggle;
+    public TMP_Dropdown ResDropdown;
+    public Toggle FullScreenToggle;
+    public Toggle VsyncToggle;
 
-    public List<ResolutionItem> resolutions = new List<ResolutionItem>();
+    Resolution[] AllResolutions;
+    bool IsVsync;
+    bool IsFullScreen;
+    int SelectedResolution;
+    List<Resolution> SelectedResolutionList = new List<Resolution>();
 
     // Start is called before the first frame update
     void Start()
     {
-        fullscreenToggle.isOn = Screen.fullScreen;
+        IsFullScreen = true;
+        AllResolutions = Screen.resolutions;
 
-        if (QualitySettings.vSyncCount == 0)
+        List<string> resolutionStringList = new List<string>();
+        string newRes;
+        foreach(Resolution res in AllResolutions)
         {
-            vsyncToggle.isOn = false;
+            newRes = res.width.ToString() + " x " + res.height.ToString();
+            if(!resolutionStringList.Contains(newRes))
+            {
+                resolutionStringList.Add(newRes);
+                SelectedResolutionList.Add(res);
+            }
+            
+        }
+
+        ResDropdown.AddOptions(resolutionStringList);
+    }
+
+    public void ChangeResolution()
+    {
+        SelectedResolution = ResDropdown.value;
+        Screen.SetResolution(SelectedResolutionList[SelectedResolution].width, SelectedResolutionList[SelectedResolution].height, IsFullScreen);
+    }
+
+    public void ChangeFullScreen()
+    {
+        IsFullScreen = FullScreenToggle.isOn;
+        Screen.SetResolution(SelectedResolutionList[SelectedResolution].width, SelectedResolutionList[SelectedResolution].height, IsFullScreen);
+    }
+
+    public void ChangeVsync()
+    {
+        if (VsyncToggle.isOn)
+        {
+            QualitySettings.vSyncCount = 1;
         }
         else
         {
-            vsyncToggle.isOn = true;
+            QualitySettings.vSyncCount = 0;
         }
     }
 
@@ -37,31 +75,9 @@ public class OptionScript : MonoBehaviour
         }
     }
 
-    public void ApplyGraphics()
-    {
-        Screen.fullScreen = fullscreenToggle.isOn;
-        
-        if (vsyncToggle.isOn)
-        {
-            QualitySettings.vSyncCount = 1;
-        }
-        else
-        {
-            QualitySettings.vSyncCount = 0;
-        }
-    }
-
     public void ExitOptionScene()
     {
         // Load the main menu scene
         SceneManager.LoadScene("Main Menu");
     }
-}
-
-[System.Serializable]
-public class ResolutionItem
-{
-    public int horizontal, vertical;
-
-
 }
