@@ -19,7 +19,7 @@ public class Interactor : MonoBehaviour
         {
             var interactable = _colliders[0].GetComponent<IInteractable>();
 
-            if (interactable != null && Input.GetKeyDown(KeyCode.F))
+            if (interactable != null && Input.GetKeyDown(KeyCode.F)) //Add joystick controls
             {
                 interactable.Interact(this);
             }
