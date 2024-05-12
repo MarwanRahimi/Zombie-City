@@ -13,11 +13,29 @@ public class AudioManager : MonoBehaviour
     public AudioClip btnclick;
     public AudioClip btnhover;
 
+
+    //public static AudioManager instance;
+
     public void Start()
     {
         musicSource.clip = backgroundmusic;
         musicSource.Play();
     }
+
+
+    //creates a bug with the SFX
+    //public void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //        DontDestroyOnLoad(this);
+    //    }
+    //    else
+    //    {
+    //        Destroy(this);
+    //    }
+    //}
 
     public void PlaySFX(AudioClip clip)
     {

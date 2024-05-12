@@ -14,13 +14,13 @@ public class MainmenuButtonFunctionality : MonoBehaviour
     public void Options()
     {
         // change scene to the options scene
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Option");
     }
 
     public void Credits()
     {
         // change scene to the credits scene
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Credit");
     }
 
     public void ExitGame()
