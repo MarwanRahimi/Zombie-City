@@ -24,7 +24,6 @@ public class Vehicle : MonoBehaviour, IInteractable
             Debug.Log("Using wrench");
             inventory.hasWrench = false;
             hasUsedWrench = true;
-            transform.rotation = Quaternion.identity;
             return true;
         }
         else if (hasUsedWrench && inventory.hasWheel)
