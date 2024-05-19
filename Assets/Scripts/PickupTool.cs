@@ -15,6 +15,10 @@ public class ToolItem : MonoBehaviour
             {
                 HandlePickup(inventory);
             }
+            else
+            {
+                Debug.Log("not found");
+            }
             Destroy(gameObject);
         }
     }
