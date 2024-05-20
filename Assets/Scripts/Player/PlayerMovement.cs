@@ -26,11 +26,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (xInput == 0 && zInput == 0)
         {
-            playerAnimator.SetBool("IsMoving", false);
+            //playerAnimator.SetBool("IsMoving", false);
         }
         if (xInput != 0 || zInput != 0)
         {
-            playerAnimator.SetBool("IsMoving", true);
+            //playerAnimator.SetBool("IsMoving", true);
 
         }
 
