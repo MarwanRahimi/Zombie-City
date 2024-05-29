@@ -278,6 +278,23 @@ GameObject:
   - component: {fileID: 450993146}
   - component: {fileID: 450993145}
   - component: {fileID: 450993147}
+  - component: {fileID: 450993148}
+  - component: {fileID: 450993150}
+  - component: {fileID: 450993157}
+  - component: {fileID: 450993156}
+  - component: {fileID: 450993155}
+  - component: {fileID: 450993151}
+  - component: {fileID: 450993149}
+  - component: {fileID: 450993166}
+  - component: {fileID: 450993165}
+  - component: {fileID: 450993164}
+  - component: {fileID: 450993163}
+  - component: {fileID: 450993159}
+  - component: {fileID: 450993162}
+  - component: {fileID: 450993161}
+  - component: {fileID: 450993158}
+  - component: {fileID: 450993167}
+  - component: {fileID: 450993168}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -310,9 +327,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 450993146}
+  - {fileID: 450993159}
   selectedCommands:
-  - {fileID: 450993145}
+  - {fileID: 450993168}
   variables: []
   description: 
   stepPause: 0
@@ -338,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 1
   indentLevel: 0
-  storyText: '{s}, {s=25}The once-thriving city now lies in ruins.'
+  storyText: '{s=25}The once-thriving city now lies in ruins.'
   description: 
   character: {fileID: 321026232}
   portrait: {fileID: 0}
@@ -365,8 +382,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 957
-    y: 146
+    x: 616
+    y: 147
     width: 95
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -444,8 +461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1073
-    y: 143
+    x: 732
+    y: 144
     width: 115
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -473,8 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 7
   indentLevel: 0
-  storyText: '{s}, {s=25}Buildings crumble, {s}, {s=30}and the air is thick with
-    smoke.'
+  storyText: '{s=25}Buildings crumble, {s=30}and the air is thick with smoke.'
   description: 
   character: {fileID: 321026232}
   portrait: {fileID: 0}
@@ -506,7 +522,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 65d1c00a10cacba4eb97894364ccb0e7, type: 3}
 --- !u!114 &450993137
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -523,7 +539,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 9583964e9c0e00444b6f4c888bb96cdd, type: 3}
 --- !u!114 &450993138
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -535,8 +551,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1315
-    y: 142
+    x: 917
+    y: 145
     width: 99
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -556,7 +572,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &450993139
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -568,8 +584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 10
   indentLevel: 0
-  storyText: '{s}, {s=10}JACK WALKER {s}, {s=20}(early 30s, rugged, determined) emerges
-    from the shadows, his eyes filled with determination and resilience.'
+  storyText: '{s=10}JACK WALKER {s=20}(early 30s, rugged, determined) emerges from
+    the shadows, his eyes filled with determination and resilience.'
   description: 
   character: {fileID: 321026232}
   portrait: {fileID: 0}
@@ -584,7 +600,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 947109508}
 --- !u!114 &450993140
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -605,7 +621,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &450993141
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -617,7 +633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 13
   indentLevel: 0
-  storyText: '{i}{s}, {s=40}(whispering to himself)'
+  storyText: '{i}{s=40}(whispering to himself)'
   description: 
   character: {fileID: 321026232}
   portrait: {fileID: 0}
@@ -632,7 +648,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 947109508}
 --- !u!114 &450993142
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -644,9 +660,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 14
   indentLevel: 0
-  storyText: '{s}, {s=40}Humanity''s Survival...'
+  storyText: '{s=40}Humanity''s Survival...'
   description: 
-  character: {fileID: 321026232}
+  character: {fileID: 1594012333}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 8300000, guid: 99312b55f26c12c4cb21d8a770b5675a, type: 3}
   showAlways: 1
@@ -659,7 +675,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 947109508}
 --- !u!114 &450993143
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -671,9 +687,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 15
   indentLevel: 0
-  storyText: '{s}, {s=40}The {color=cyan} cure {color=white}  is our only hope.'
+  storyText: '{s=40}The {color=cyan} cure {color=white}  is our only hope.'
   description: 
-  character: {fileID: 321026232}
+  character: {fileID: 1594012333}
   portrait: {fileID: 0}
   voiceOverClip: {fileID: 8300000, guid: f5e3cbc11d9998244a19eec6dfdf20c3, type: 3}
   showAlways: 1
@@ -686,7 +702,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 947109508}
 --- !u!114 &450993144
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -698,8 +714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 16
   indentLevel: 0
-  storyText: '{s}, {s=30}The distant sound of GROWLS and SCREAMS sends a shiver down
-    his spine. {audio=ZombieGrowls}'
+  storyText: '{s=30}The distant sound of GROWLS and SCREAMS sends a shiver down his
+    spine. {audio=ZombieGrowls}'
   description: 
   character: {fileID: 321026232}
   portrait: {fileID: 0}
@@ -714,7 +730,7 @@ MonoBehaviour:
   setSayDialog: {fileID: 947109508}
 --- !u!114 &450993145
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -726,7 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 18
   indentLevel: 0
-  storyText: '{s}, {s=25} JACK''s grip tightens on his makeshift weapon as he prepares
+  storyText: '{s=25} JACK''s grip tightens on his makeshift weapon as he prepares
     to face the impending danger.'
   description: 
   character: {fileID: 321026232}
@@ -739,10 +755,10 @@ MonoBehaviour:
   waitForClick: 0
   stopVoiceover: 1
   waitForVO: 1
-  setSayDialog: {fileID: 0}
+  setSayDialog: {fileID: 947109508}
 --- !u!114 &450993146
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -754,8 +770,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 1500
-    y: 143
+    x: 1093
+    y: 144
     width: 107
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -765,11 +781,13 @@ MonoBehaviour:
   description: 
   eventHandler: {fileID: 0}
   commandList:
+  - {fileID: 450993148}
   - {fileID: 450993145}
+  - {fileID: 450993149}
   suppressAllAutoSelections: 0
 --- !u!114 &450993147
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -788,6 +806,413 @@ MonoBehaviour:
     stringVal: 
   startIndex: 0
   callMode: 0
+--- !u!114 &450993148
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 20
+  indentLevel: 0
+  images:
+  - {fileID: 161279915}
+  sprite: {fileID: 21300000, guid: 07289ab0716e6b04fbabdc4beaa4012f, type: 3}
+--- !u!114 &450993149
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 29
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 450993150}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 0
+--- !u!114 &450993150
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 1303
+    y: 143
+    width: 96
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 30
+  blockName: fifthLine
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 450993157}
+  - {fileID: 450993156}
+  - {fileID: 450993155}
+  - {fileID: 450993151}
+  suppressAllAutoSelections: 0
+--- !u!114 &450993151
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 28
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 450993166}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 0
+--- !u!114 &450993155
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 24
+  indentLevel: 0
+  storyText: '{s=40}They''re coming. I can''t let them hunt us down.'
+  description: 
+  character: {fileID: 1594012333}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: e786d3d372a01cd4a8c9b7ada0e02b67, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993156
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 23
+  indentLevel: 0
+  storyText: (to himself)
+  description: 
+  character: {fileID: 321026232}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: a27714bea91b1304296e735ebdd94d45, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993157
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 22
+  indentLevel: 0
+  images:
+  - {fileID: 161279915}
+  sprite: {fileID: 21300000, guid: 9583964e9c0e00444b6f4c888bb96cdd, type: 3}
+--- !u!114 &450993158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 40
+  indentLevel: 0
+  storyText: '{s=25}I need to scavenge for supplies, find any clues that might lead
+    to the cure.'
+  description: 
+  character: {fileID: 1594012333}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 5d4cf8063f7dd6c4ebd94ac2af3b2dd8, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 1611.5
+    y: 142
+    width: 119
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 44
+  blockName: seventhLine
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 450993162}
+  - {fileID: 450993161}
+  - {fileID: 450993158}
+  - {fileID: 450993167}
+  - {fileID: 450993168}
+  suppressAllAutoSelections: 0
+--- !u!114 &450993161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 38
+  indentLevel: 0
+  storyText: (surveying the area)
+  description: 
+  character: {fileID: 321026232}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: d0f8f776330bd7f4e86422fa50953fd6, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 37
+  indentLevel: 0
+  images:
+  - {fileID: 161279915}
+  sprite: {fileID: 21300000, guid: 5c334fc8c166ba344bef5e1478b82e24, type: 3}
+--- !u!114 &450993163
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 35
+  indentLevel: 0
+  targetFlowchart: {fileID: 0}
+  targetBlock: {fileID: 450993159}
+  startLabel:
+    stringRef: {fileID: 0}
+    stringVal: 
+  startIndex: 0
+  callMode: 0
+--- !u!114 &450993164
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 33
+  indentLevel: 0
+  storyText: '{s=20}JACK navigates through the debris-filled streets, his every step
+    cautious. His eyes scan the surroundings, searching for any signs of danger or
+    possible resources.'
+  description: 
+  character: {fileID: 321026232}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: 169e0e04730a78944a0dea20d43494b4, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 0
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993165
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e4c082f762243f6943909a4272096d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 32
+  indentLevel: 0
+  images:
+  - {fileID: 161279915}
+  sprite: {fileID: 21300000, guid: 7855f39df45876941b7b8b9ff44f1675, type: 3}
+--- !u!114 &450993166
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 1440.5
+    y: 143
+    width: 100
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 43
+  blockName: sixthLine
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 450993165}
+  - {fileID: 450993164}
+  - {fileID: 450993163}
+  suppressAllAutoSelections: 0
+--- !u!114 &450993167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 41
+  indentLevel: 0
+  storyText: '{s=25}With each passing moment, the weight of the situation becomes
+    more apparent. The city''s once-lively spirit has been replaced by the haunting
+    presence of the undead.'
+  description: 
+  character: {fileID: 321026232}
+  portrait: {fileID: 0}
+  voiceOverClip: {fileID: 8300000, guid: c99f4e8387a0ef24aa0ca27fbad2f0f4, type: 3}
+  showAlways: 1
+  showCount: 1
+  extendPrevious: 0
+  fadeWhenDone: 1
+  waitForClick: 1
+  stopVoiceover: 1
+  waitForVO: 1
+  setSayDialog: {fileID: 947109508}
+--- !u!114 &450993168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450993122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 45
+  indentLevel: 0
+  _sceneName:
+    stringRef: {fileID: 0}
+    stringVal: 
+  loadingImage: {fileID: 0}
+  sceneNameOLD: 
 --- !u!1 &818861925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +2346,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1594012332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594012334}
+  - component: {fileID: 1594012333}
+  m_Layer: 0
+  m_Name: Character
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1594012333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594012332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: Jack Walker
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  soundEffect: {fileID: 0}
+  portraits: []
+  portraitsFace: 0
+  setSayDialog: {fileID: 0}
+  description: 
+--- !u!4 &1594012334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594012332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1741681226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,7 +2427,7 @@ Transform:
   m_Children:
   - {fileID: 1472038644}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805579206
 GameObject:
