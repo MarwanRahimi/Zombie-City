@@ -15,7 +15,7 @@ namespace Unity.FPS.Game
         public UnityAction OnDie;
 
         public float CurrentHealth { get; set; }
-        public bool Invincible { get; set; }
+        public bool Invincible;
         public bool CanPickup() => CurrentHealth < MaxHealth;
 
         public float GetRatio() => CurrentHealth / MaxHealth;
@@ -58,6 +58,8 @@ namespace Unity.FPS.Game
                 OnDamaged?.Invoke(trueDamageAmount, damageSource);
             }
 
+            Debug.Log("Zombie killed");
+
             HandleDeath();
         }
 
@@ -81,6 +83,8 @@ namespace Unity.FPS.Game
             {
                 m_IsDead = true;
                 OnDie?.Invoke();
+
+                Destroy(gameObject);
             }
         }
     }
