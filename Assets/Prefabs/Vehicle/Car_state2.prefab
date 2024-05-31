@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currPrompt: 
-  hasUsedWheel: 0
+  hasUsedWrench: 1
+  hasUsedWheel: 1
   isFixed: 1
   wheelPrefab: {fileID: 0}
   armorPrefab: {fileID: 0}

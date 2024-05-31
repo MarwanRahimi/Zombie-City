@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class Interactor : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] private LayerMask _interactableMask;
     [SerializeField] private int _numFound;
     private readonly Collider[] _colliders = new Collider[3];
-    private IInteractable[] _interactable;
+    private IInteractable _interactable;
     [SerializeField] private TextMeshProUGUI _promptText;
     private bool isDisplayed = false;
 
@@ -20,13 +18,29 @@ public class Interactor : MonoBehaviour
 
         if (_numFound > 0)
         {
-            var _interactable = _colliders[0].GetComponent<IInteractable>();
+            _interactable = _colliders[0].GetComponent<IInteractable>();
 
             if (_interactable != null)
             {
-                if (!isDisplayed) SetUp(_interactable.Prompt);
+                if (!isDisplayed)
+                {
+                    if (_interactable is Vehicle)
+                    {
+                        Vehicle vehicle = (Vehicle)_interactable;
+                        vehicle.UpdatePrompt();
+                    }
+                    SetUp(_interactable.Prompt);
+                }
 
-                if (Input.GetKeyDown(KeyCode.F)) _interactable.Interact(this);
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    _interactionRadius = 0.0f;
+
+                    _interactable.Interact(this);
+
+                    // Restore the original interaction radius after a delay (you can adjust the duration as needed)
+                    Invoke("ResetInteractionRadius", 0.7f);
+                }
             }
         }
         else
@@ -55,5 +69,10 @@ public class Interactor : MonoBehaviour
     {
         isDisplayed = false;
         _promptText.text = "";
+    }
+
+    private void ResetInteractionRadius()
+    {
+        _interactionRadius = 1.2f;
     }
 }

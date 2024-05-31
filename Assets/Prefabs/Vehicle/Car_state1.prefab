@@ -457,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currPrompt: 
+  hasUsedWrench: 1
   hasUsedWheel: 1
   isFixed: 0
   wheelPrefab: {fileID: 0}
