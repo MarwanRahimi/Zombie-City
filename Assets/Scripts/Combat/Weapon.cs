@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+
 public class Weapon : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -12,11 +13,15 @@ public class Weapon : MonoBehaviour
     public float recoilAmount = 0.1f;
     public float recoilRotationAmount = 10f;
     public float recoilRecoverySpeed = 2f;
+    public float ClipLength = 1f;
+
+
 
     public List<ParticleSystem> muzzleFlashes;
     public GameObject crosshairRef;
     public int poolSize = 10;
 
+    private AudioSource shootSound;
     private float nextFireTime = 0f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -27,7 +32,7 @@ public class Weapon : MonoBehaviour
         initialPosition = transform.localPosition;
         initialRotation = transform.localRotation;
 
-        // Initialize bullet pool
+        
         bulletPool = new List<GameObject>();
         for (int i = 0; i < poolSize; i++)
         {
@@ -35,6 +40,9 @@ public class Weapon : MonoBehaviour
             bullet.SetActive(false);
             bulletPool.Add(bullet);
         }
+        
+        shootSound = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -68,7 +76,13 @@ public class Weapon : MonoBehaviour
             rb.velocity = bulletSpawnPoint.forward * bulletSpeed;
 
             ApplyRecoil();
+            shootSound.Play();
         }
+
+       
+
+
+
     }
 
     GameObject GetPooledBullet()
