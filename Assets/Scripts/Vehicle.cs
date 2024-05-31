@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Vehicle : MonoBehaviour, IInteractable
@@ -44,6 +45,9 @@ public class Vehicle : MonoBehaviour, IInteractable
             UpdatePrompt();
             return true;
         }
+        else if(isFixed){
+/*            SceneManager.LoadScene("Level2");
+*/        }
 
         UpdatePrompt();
         return false;

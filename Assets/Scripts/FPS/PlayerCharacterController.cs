@@ -193,8 +193,6 @@ namespace Unity.FPS.Gameplay
                 if (RecievesFallDamage && fallSpeedRatio > 0f)
                 {
                     float dmgFromFall = Mathf.Lerp(FallDamageAtMinSpeed, FallDamageAtMaxSpeed, fallSpeedRatio);
-                    m_Health.TakeDamage(dmgFromFall, null);
-
                     // fall damage SFX
                     AudioSource.PlayOneShot(FallDamageSfx);
                 }

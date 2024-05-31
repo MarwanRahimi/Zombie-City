@@ -49,7 +49,7 @@ namespace Unity.FPS.Game
             }
         }
 
-        public void TakeDamage(float damage, GameObject damageSource)
+        public void TakeDamage(float damage)
         {
             if (Invincible)
                 return;
@@ -62,7 +62,7 @@ namespace Unity.FPS.Game
             float trueDamageAmount = healthBefore - CurrentHealth;
             if (trueDamageAmount > 0f)
             {
-                OnDamaged?.Invoke(trueDamageAmount, damageSource);
+                OnDamaged?.Invoke(trueDamageAmount, null);
             }
 
             HandleDeath();
@@ -88,7 +88,6 @@ namespace Unity.FPS.Game
             {
                 m_IsDead = true;
                 OnDie?.Invoke();
-
                 DropItems();
                 Destroy(gameObject);
             }
@@ -125,6 +124,11 @@ namespace Unity.FPS.Game
                     DropItems();
                 }
             }
+        }
+
+        public bool IsDead()
+        {
+            return m_IsDead;
         }
     }
 }
