@@ -21,6 +21,7 @@ public class Vehicle : MonoBehaviour, IInteractable
 
         if (!hasUsedWrench && inventory.hasWrench)
         {
+            _currPrompt = "Press F to use Wrench";
             Debug.Log("Using wrench");
             inventory.hasWrench = false;
             hasUsedWrench = true;

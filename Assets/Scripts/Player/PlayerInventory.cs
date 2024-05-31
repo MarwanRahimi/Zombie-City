@@ -1,11 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField]
+    private static PlayerInventory _instance;
+    public static PlayerInventory Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject singletonObject = new GameObject(typeof(PlayerInventory).Name);
+                _instance = singletonObject.AddComponent<PlayerInventory>();
+            }
+            return _instance;
+        }
+    }
 
+    [SerializeField]
     private Transform weaponSocket;
     public bool hasWrench = false;
     public bool hasWheel = false;
@@ -22,5 +33,18 @@ public class PlayerInventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
     }
 }

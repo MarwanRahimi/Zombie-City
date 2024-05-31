@@ -458,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currPrompt: 
   hasUsedWheel: 1
+  isFixed: 0
   wheelPrefab: {fileID: 0}
   armorPrefab: {fileID: 1742474906523214281, guid: 5e6b2b7f66028dc42beeee1dfbbcf141, type: 3}
 --- !u!1 &8246129483534670620

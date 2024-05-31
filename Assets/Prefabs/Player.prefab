@@ -547,6 +547,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
+  _playerCamera: {fileID: 0}
 --- !u!114 &182580406124468936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,7 +811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2584690415413462812}
   m_LocalRotation: {x: -4.809055e-15, y: 0.9992848, z: 0.000000119124, w: -0.037813727}
-  m_LocalPosition: {x: 0.04, y: -0, z: 0.53}
+  m_LocalPosition: {x: 0.04, y: -0, z: 0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
