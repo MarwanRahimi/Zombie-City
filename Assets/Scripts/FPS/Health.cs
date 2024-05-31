@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 namespace Unity.FPS.Game
 {
     public class Health : MonoBehaviour
     {
         [Tooltip("Maximum amount of health")] public float MaxHealth = 10f;
-
         [Tooltip("Health ratio at which the critical health vignette starts appearing")]
         public float CriticalHealthRatio = 0.3f;
 
@@ -16,10 +16,17 @@ namespace Unity.FPS.Game
 
         public float CurrentHealth { get; set; }
         public bool Invincible;
-        public bool CanPickup() => CurrentHealth < MaxHealth;
 
-        public float GetRatio() => CurrentHealth / MaxHealth;
-        public bool IsCritical() => GetRatio() <= CriticalHealthRatio;
+        [System.Serializable]
+        public class Item
+        {
+            public GameObject prefab;
+        }
+
+        public Item[] dropItems;
+        private static List<GameObject> droppedItems = new List<GameObject>();
+        private static int nextItemIndex = 0;
+        private static float dropChance = 0.2f; 
 
         bool m_IsDead;
 
@@ -58,8 +65,6 @@ namespace Unity.FPS.Game
                 OnDamaged?.Invoke(trueDamageAmount, damageSource);
             }
 
-            Debug.Log("Zombie killed");
-
             HandleDeath();
         }
 
@@ -84,7 +89,41 @@ namespace Unity.FPS.Game
                 m_IsDead = true;
                 OnDie?.Invoke();
 
+                DropItems();
                 Destroy(gameObject);
+            }
+        }
+
+        void DropItems()
+        {
+            // Ensure the next item index is within bounds
+            if (nextItemIndex < dropItems.Length)
+            {
+                Item item = dropItems[nextItemIndex];
+
+                // Check if the item has already been dropped
+                if (!droppedItems.Contains(item.prefab))
+                {
+                    float roll = Random.value;
+                    Debug.Log($"Drop chance for item {item.prefab.name}: {roll}");
+
+                    if (roll <= dropChance)
+                    {
+                        Debug.Log($"Dropping item: {item.prefab.name}");
+                        GameObject droppedItem = Instantiate(item.prefab, transform.position, Quaternion.identity);
+                        droppedItem.transform.position += new Vector3(0,1,0);
+                        droppedItems.Add(item.prefab);
+                        dropChance = 0.3f;
+                        nextItemIndex++;
+                    }
+                }
+                else
+                {
+                    // If the item was already dropped, increment the index and try the next item
+                    nextItemIndex++;
+                    dropChance += 0.1f;
+                    DropItems();
+                }
             }
         }
     }
