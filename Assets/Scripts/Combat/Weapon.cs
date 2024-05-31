@@ -39,13 +39,16 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFireTime)
+        if (!PauseMenu.isPause && Input.GetButton("Fire1") && Time.time > nextFireTime)
         {
             Shoot();
             nextFireTime = Time.time + fireRate;
         }
 
-        RecoverFromRecoil();
+        if (!PauseMenu.isPause)
+        {
+            RecoverFromRecoil();
+        }
     }
 
     void Shoot()

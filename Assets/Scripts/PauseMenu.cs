@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        isPause = false; // Ensure isPause is false when the game starts
     }
 
     // Update is called once per frame
@@ -53,12 +54,14 @@ public class PauseMenu : MonoBehaviour
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
+        isPause = false; // Ensure isPause is reset when going to the main menu
         SceneManager.LoadScene("Main Menu");
     }
 
     public void GoToOptions()
     {
         Time.timeScale = 1f;
+        isPause = false; // Ensure isPause is reset when going to the options menu
         SceneManager.LoadScene("Option");
     }
 
