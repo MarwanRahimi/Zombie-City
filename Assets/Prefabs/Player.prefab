@@ -424,8 +424,9 @@ GameObject:
   - component: {fileID: 4212422473062443517}
   - component: {fileID: 4376572900733790364}
   - component: {fileID: 6770457967198508741}
-  - component: {fileID: 7358158650919456011}
   - component: {fileID: 182580406124468936}
+  - component: {fileID: 9159652634392711529}
+  - component: {fileID: 7543392600121644056}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -529,25 +530,6 @@ MonoBehaviour:
   orientation: {fileID: 5779781432464516928}
   groundCheck: {fileID: 8631932212796318776}
   groundCheckRadius: 0.3
---- !u!114 &7358158650919456011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480234391398060116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f42a914e163a6b4f8f1fec7d1aa80c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactionPoint: {fileID: 3470438151930694906}
-  _interactionRadius: 0.52
-  _interactable:
-    serializedVersion: 2
-    m_Bits: 64
-  _numFound: 0
-  _playerCamera: {fileID: 0}
 --- !u!114 &182580406124468936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +546,44 @@ MonoBehaviour:
   hasWrench: 0
   hasWheel: 0
   hasArmor: 0
+--- !u!114 &9159652634392711529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480234391398060116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831451e0efc2d644ba80ef8f738945f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoSlots:
+  - ammoType: 0
+    ammoAmount: 20
+  - ammoType: 1
+    ammoAmount: 20
+  - ammoType: 2
+    ammoAmount: 20
+--- !u!114 &7543392600121644056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480234391398060116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f42a914e163a6b4f8f1fec7d1aa80c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactionPoint: {fileID: 0}
+  _interactionRadius: 1
+  _interactableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _numFound: 0
+  _promptText: {fileID: 0}
 --- !u!1 &1508048970802672554
 GameObject:
   m_ObjectHideFlags: 0

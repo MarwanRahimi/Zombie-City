@@ -17,6 +17,7 @@ public class ResolutionManager : MonoBehaviour
     private int currentResolutionIndex = 0;
 
     // Start is called before the first frame update
+    [System.Obsolete]
     void Start()
     {
         isFullScreen = true;

@@ -8,7 +8,7 @@ using Unity.FPS.Game;
 public class Weapon : MonoBehaviour {
 
     // Configuration parameters
-    [SerializeField] Camera FPCamera = null;
+    [SerializeField] public Camera FPCamera = null;
     [SerializeField] ParticleSystem muzzleFlash = null;
     [SerializeField] GameObject terrainHitEffect = null;
     [SerializeField] GameObject zombieHitEffect = null;
@@ -17,14 +17,19 @@ public class Weapon : MonoBehaviour {
     [SerializeField] float weaponDamage = 50f;
     [SerializeField] float delayDestroyTerrainHitEffect = 0.1f;
     [SerializeField] float timeBetweenShots = 0.5f;
-    [SerializeField] Ammo ammoSlot;
+    [SerializeField] public Ammo ammoSlot;
     [SerializeField] AmmoType ammoType;
     [SerializeField] AudioClip gunshotSFX;
     [SerializeField] [Range(0, 1)] float gunshotSFXVolume = 1f;
-    [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] public TextMeshProUGUI ammoText;
 
     // State variables
     bool canShoot = true;
+
+    public AmmoType GetAmmoType()
+    {
+        return ammoType;
+    }
 
     // Cached references
     WeaponSwitcher myWeaponSwitcher = null;
@@ -91,25 +96,26 @@ public class Weapon : MonoBehaviour {
         muzzleFlash.Play();
     }
 
-    void ProcessRayCast() {
+    void ProcessRayCast()
+    {
         RaycastHit hit;
 
-        if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, shootingRange)) {
-
+        if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, shootingRange, ~LayerMask.GetMask("Player")))
+        {
             Health target = hit.transform.GetComponent<Health>();
-            if (target == null) {
+            Debug.Log("Hit object: " + hit.transform.name);
+            if (target == null)
+            {
                 CreateTerrainHitEffect(hit);
             }
-            else {
+            else
+            {
                 target.TakeDamage(weaponDamage);
                 CreateZombieHitEffect(hit);
-
-
             }
-
         }
-
-        else {
+        else
+        {
             return;
         }
     }

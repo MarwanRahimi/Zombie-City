@@ -26,7 +26,7 @@ namespace Unity.FPS.Game
         public Item[] dropItems;
         private static List<GameObject> droppedItems = new List<GameObject>();
         private static int nextItemIndex = 0;
-        private static float dropChance = 0.2f; 
+        private static float dropChance = 0.2f;
 
         bool m_IsDead;
 
@@ -90,6 +90,8 @@ namespace Unity.FPS.Game
                 OnDie?.Invoke();
                 DropItems();
                 Destroy(gameObject);
+                IncreasePlayerAmmo();
+                EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
             }
         }
 
@@ -106,11 +108,12 @@ namespace Unity.FPS.Game
                     float roll = Random.value;
                     Debug.Log($"Drop chance for item {item.prefab.name}: {roll}");
 
-                    if (roll <= dropChance)
+                    // Drop item based on drop chance or if it's one of the last remaining items
+                    if (roll <= dropChance || EnemySpawner.Instance.IsLastEnemy())
                     {
                         Debug.Log($"Dropping item: {item.prefab.name}");
                         GameObject droppedItem = Instantiate(item.prefab, transform.position, Quaternion.identity);
-                        droppedItem.transform.position += new Vector3(0,1,0);
+                        droppedItem.transform.position += new Vector3(0, 1, 0);
                         droppedItems.Add(item.prefab);
                         dropChance = 0.3f;
                         nextItemIndex++;
@@ -129,6 +132,59 @@ namespace Unity.FPS.Game
         public bool IsDead()
         {
             return m_IsDead;
+        }
+
+        void IncreasePlayerAmmo()
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject switcher = GameObject.FindGameObjectWithTag("Switcher");
+
+            if (player == null)
+            {
+                Debug.LogWarning("Player GameObject not found.");
+                return;
+            }
+
+            Ammo ammoComponent = player.GetComponent<Ammo>();
+            WeaponSwitcher weaponSwitcher = player.GetComponentInChildren<WeaponSwitcher>();
+
+            if (ammoComponent == null || switcher == null)
+            {
+                if (ammoComponent == null)
+                {
+                    Debug.LogWarning("Ammo component not found on the player GameObject.");
+                }
+
+                if (weaponSwitcher == null)
+                {
+                    Debug.LogWarning("WeaponSwitcher component not found on the player.");
+                }
+
+                return;
+            }
+
+            AmmoType currentAmmoType = weaponSwitcher.GetCurrentWeaponAmmoType();
+
+            float chance = Random.value;
+            Debug.Log($"Drop chance for ammo: {chance}");
+            if (chance <= 0.25f) // 50% chance to increase ammo
+            {
+                switch (currentAmmoType)
+                {
+                    case AmmoType.PistolBullets:
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.PistolBullets, 7);
+                        break;
+                    case AmmoType.MPBullets:
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.MPBullets, 10);
+                        break;
+                    case AmmoType.AKMBullets:
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.AKMBullets, 6);
+                        break;
+                    default:
+                        Debug.LogWarning("Current weapon ammo type is not recognized.");
+                        break;
+                }
+            }
         }
     }
 }

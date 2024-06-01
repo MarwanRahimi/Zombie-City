@@ -5,14 +5,30 @@ using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance { get; private set; }
+
     public int maxSpawnNumber = 10;
     public float spawnInterval = 2f;
-    public GameObject enemyPrefab; 
+    public GameObject enemyPrefab;
 
-    private int currentSpawned = 0; 
+    private int currentSpawned = 0;
+    private int remainingEnemies;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
+        remainingEnemies = maxSpawnNumber;
         InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
     }
 
@@ -48,4 +64,21 @@ public class EnemySpawner : MonoBehaviour
 
         return new Vector3(randomX, transform.position.y, randomZ);
     }
+
+    public void OnEnemyKilled()
+    {
+        remainingEnemies--;
+        Debug.Log("Remaining Enemies: " + remainingEnemies);
+
+        if (remainingEnemies <= 0)
+        {
+            Debug.Log("All zombies killed.");
+        }
+    }
+
+    public bool IsLastEnemy()
+    {
+        return remainingEnemies == 1;
+    }
+
 }

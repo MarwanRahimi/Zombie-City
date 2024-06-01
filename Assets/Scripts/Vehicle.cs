@@ -24,7 +24,9 @@ public class Vehicle : MonoBehaviour, IInteractable
         {
             inventory.hasWrench = false;
             hasUsedWrench = true;
-            transform.rotation = Quaternion.identity;
+            Quaternion currentRotation = transform.rotation;
+            Quaternion newRotation = Quaternion.Euler(0f, currentRotation.eulerAngles.y, 0f);
+            transform.rotation = newRotation;
             UpdatePrompt();
             return true;
         }
@@ -32,8 +34,7 @@ public class Vehicle : MonoBehaviour, IInteractable
         {
             inventory.hasWheel = false;
             Destroy(gameObject);
-            GameObject instantiatedVehicle = Instantiate(wheelPrefab, transform.position, Quaternion.identity);
-            instantiatedVehicle.transform.rotation = Quaternion.identity;
+            GameObject instantiatedVehicle = Instantiate(wheelPrefab, transform.position, transform.rotation);
             UpdatePrompt();
             return true;
         }
