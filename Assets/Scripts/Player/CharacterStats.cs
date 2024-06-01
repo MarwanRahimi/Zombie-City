@@ -18,11 +18,33 @@ public class CharacterStats : MonoBehaviour
     [Tooltip("Amount of health regenerated per second")]
     public float HealthRegenRate = 1f;
 
+    [Tooltip("Amount of stamina drained per second while sprinting")]
+    public float SprintStaminaDrain = 10f;
+
+    [Tooltip("Amount of stamina drained per jump")]
+    public float JumpStaminaDrain = 15f;
+
+    [Tooltip("Amount of stamina drained per second while sliding")]
+    public float SlideStaminaDrain = 15f;
+
+    [Tooltip("Time in seconds without consuming stamina to start regenerating stamina")]
+    public float StaminaRegenCooldown = 2f;
+
+    [Tooltip("Time in seconds to start regenerating stamina after it reaches 0")]
+    public float StaminaExhaustedCooldown = 5f;
+
+    [Tooltip("Amount of stamina regenerated per second")]
+    public float StaminaRegenRate = 10f;
+
     private Coroutine healthRegenCooldownCoroutine;
     private Coroutine healthRegenCoroutine;
+    private Coroutine staminaRegenCooldownCoroutine;
+    private Coroutine staminaRegenCoroutine;
     private float lastDamageTime;
+    private float lastStaminaUseTime;
     private bool isDead;
     private bool isTakingDamage;
+    private bool isSprinting;
 
     private void Awake()
     {
@@ -30,6 +52,7 @@ public class CharacterStats : MonoBehaviour
         stamina.Initialize();
         isDead = false;
         isTakingDamage = false;
+        isSprinting = false;
     }
 
     private void Start()
@@ -70,9 +93,9 @@ public class CharacterStats : MonoBehaviour
             health.CurrentVal = 0;
             isDead = true;
             deathUI.SetActive(true);
-                Time.timeScale = 0f;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             //Debug.Log("Player died");
             return;
         }
@@ -118,5 +141,112 @@ public class CharacterStats : MonoBehaviour
         }
 
         healthRegenCoroutine = null;
+    }
+
+    public void PlayerSprinting(float sprintDrain)
+    {
+        if (isDead) return;
+
+        stamina.CurrentVal -= sprintDrain * Time.deltaTime;
+        lastStaminaUseTime = Time.time;
+
+        if (staminaRegenCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCoroutine);
+            staminaRegenCoroutine = null;
+        }
+
+        if (staminaRegenCooldownCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCooldownCoroutine);
+        }
+
+        if (stamina.CurrentVal <= 0)
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaExhaustedCooldown));
+        }
+        else
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaRegenCooldown));
+        }
+    }
+
+    public void PlayerJumping()
+    {
+        if (isDead) return;
+
+        stamina.CurrentVal -= JumpStaminaDrain;
+        lastStaminaUseTime = Time.time;
+
+        if (staminaRegenCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCoroutine);
+            staminaRegenCoroutine = null;
+        }
+
+        if (staminaRegenCooldownCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCooldownCoroutine);
+        }
+
+        if (stamina.CurrentVal <= 0)
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaExhaustedCooldown));
+        }
+        else
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaRegenCooldown));
+        }
+    }
+
+    public void PlayerSliding(float slideDrain)
+    {
+        if (isDead) return;
+
+        stamina.CurrentVal -= slideDrain * Time.deltaTime;
+        lastStaminaUseTime = Time.time;
+
+        if (staminaRegenCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCoroutine);
+            staminaRegenCoroutine = null;
+        }
+
+        if (staminaRegenCooldownCoroutine != null)
+        {
+            StopCoroutine(staminaRegenCooldownCoroutine);
+        }
+
+        if (stamina.CurrentVal <= 0)
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaExhaustedCooldown));
+        }
+        else
+        {
+            staminaRegenCooldownCoroutine = StartCoroutine(StaminaRegenCooldownRoutine(StaminaRegenCooldown));
+        }
+    }
+
+    private IEnumerator StaminaRegenCooldownRoutine(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+
+        if (stamina.CurrentVal < stamina.MaxVal && !isDead)
+        {
+            staminaRegenCoroutine = StartCoroutine(RegenerateStamina());
+        }
+    }
+
+    private IEnumerator RegenerateStamina()
+    {
+        while (stamina.CurrentVal < stamina.MaxVal && !isDead)
+        {
+            stamina.CurrentVal += StaminaRegenRate * Time.deltaTime;
+            stamina.CurrentVal = Mathf.Clamp(stamina.CurrentVal, 0, stamina.MaxVal);
+
+            yield return null;
+        }
+
+        staminaRegenCoroutine = null;
     }
 }

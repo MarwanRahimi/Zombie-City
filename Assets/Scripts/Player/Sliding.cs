@@ -9,6 +9,7 @@ public class Sliding : MonoBehaviour
     public Transform playerobj;
     private Rigidbody rb;
     private PlayerMovementFPS pm;
+    private CharacterStats characterStats;
 
     [Header("Sliding")]
     public float maxSlideTime;
@@ -29,6 +30,7 @@ public class Sliding : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementFPS>();
+        characterStats = GetComponent<CharacterStats>(); // Ensure this component is attached to the same GameObject
 
         startYScale = playerobj.localScale.y;
     }
@@ -39,8 +41,8 @@ public class Sliding : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKeyDown(slideKey) && (horizontalInput != 0 || verticalInput != 0))
-        
             StartSlide();
+
         if (Input.GetKeyUp(slideKey) && sliding)
             StopSlide();
     }
@@ -52,6 +54,7 @@ public class Sliding : MonoBehaviour
             SlidingMovement();
         }
     }
+
     private void StartSlide()
     {
         sliding = true;
@@ -70,7 +73,10 @@ public class Sliding : MonoBehaviour
 
         slideTime -= Time.deltaTime;
 
-        if(slideTime <= 0)
+        // Drain stamina while sliding
+        characterStats.PlayerSliding(characterStats.SlideStaminaDrain);
+
+        if (slideTime <= 0 || characterStats.stamina.CurrentVal <= 0)
         {
             StopSlide();
         }

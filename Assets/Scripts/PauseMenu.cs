@@ -1,12 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public static bool isPause;
+
+    [Header("FOV Control")]
+    public Slider fovSlider; // Reference to the slider
+    public Camera playerCamera; // Reference to the player camera
+    public TMP_Text fovValueText; // Reference to the TextMesh Pro text
+
+    private const string FovPrefKey = "PlayerFOV"; // Key to store the FOV value
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +24,29 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPause = false; // Ensure isPause is false when the game starts
+
+        // Load the FOV value from PlayerPrefs or use the default camera FOV if not set
+        float savedFov = PlayerPrefs.GetFloat(FovPrefKey, playerCamera.fieldOfView);
+
+        // Initialize the slider values
+        if (fovSlider != null)
+        {
+            fovSlider.minValue = 40;
+            fovSlider.maxValue = 70;
+            fovSlider.value = playerCamera.fieldOfView; // Set the slider value to the current FOV
+        }
+
+        // Update the FOV text value at the start
+        if (fovValueText != null)
+        {
+            fovValueText.text = playerCamera.fieldOfView.ToString("F0");
+        }
+
+        // Set the player camera FOV to the saved value
+        if (playerCamera != null)
+        {
+            playerCamera.fieldOfView = savedFov;
+        }
     }
 
     // Update is called once per frame
@@ -61,5 +93,23 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    // Method to handle slider value changes
+    public void OnFovSliderValueChanged(float value)
+    {
+        if (playerCamera != null)
+        {
+            playerCamera.fieldOfView = value;
+        }
+
+        if (fovValueText != null)
+        {
+            fovValueText.text = value.ToString("F0");
+        }
+
+        // Save the FOV value to PlayerPrefs
+        PlayerPrefs.SetFloat(FovPrefKey, value);
+        PlayerPrefs.Save();
     }
 }
