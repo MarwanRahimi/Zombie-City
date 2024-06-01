@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Fonts/Burn out, fade away SDF.asset.meta
 guid: 7fc48579de1a8994d9cd8cba9904ba7d
+========
+guid: 29cae11326cb84802b83fc3ff25a47e8
+>>>>>>>> OpeningCutScene:Assets/Fungus/EditorResources/FungusEditorResources.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
