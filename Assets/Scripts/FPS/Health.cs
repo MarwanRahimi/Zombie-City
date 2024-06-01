@@ -101,28 +101,44 @@ namespace Unity.FPS.Game
         public void DropItems()
         {
             int killedEnemies = EnemySpawner.Instance.maxSpawnNumber - EnemySpawner.Instance.remainingEnemies;
+            Debug.Log($"killedEnemies: {killedEnemies}, dropIndex: {dropIndex}, nextItemIndex: {nextItemIndex}");
             Debug.Log(killedEnemies);
+            Debug.Log(dropAtCounts[dropIndex]);
             // Check if the killed enemies count matches the next drop threshold
-            if (dropIndex < dropAtCounts.Length && killedEnemies == dropAtCounts[dropIndex])
+            if (killedEnemies == 3)
             {
-                // Ensure the next item index is within bounds
-                if (nextItemIndex < dropItems.Length)
-                {
-                    Item item = dropItems[nextItemIndex];
-
-                    // Check if the item has already been dropped
-                    if (!droppedItems.Contains(item.prefab))
-                    {
-                        Debug.Log($"Dropping item: {item.prefab.name}");
-                        GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
-                        droppedItem.transform.position += new Vector3(0, 1, 0);
-                        droppedItems.Add(item.prefab);
-                        nextItemIndex++;
-                    }
-
-                    // Move to the next drop threshold
-                    dropIndex++;
-                }
+                Item item = dropItems[0];
+                Debug.Log($"Dropping item: {item.prefab.name}");
+                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
+                droppedItem.transform.position += new Vector3(0, 1, 0);
+                droppedItems.Add(item.prefab);
+            }
+            // Check if the killed enemies count matches the next drop threshold
+            if (killedEnemies == 7)
+            {
+                Item item = dropItems[1];
+                Debug.Log($"Dropping item: {item.prefab.name}");
+                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
+                droppedItem.transform.position += new Vector3(0, 1, 0);
+                droppedItems.Add(item.prefab);
+            }
+            // Check if the killed enemies count matches the next drop threshold
+            if (killedEnemies == 11)
+            {
+                Item item = dropItems[2];
+                Debug.Log($"Dropping item: {item.prefab.name}");
+                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
+                droppedItem.transform.position += new Vector3(0, 1, 0);
+                droppedItems.Add(item.prefab);
+            }
+            // Check if the killed enemies count matches the next drop threshold
+            if (killedEnemies == 14)
+            {
+                Item item = dropItems[3];
+                Debug.Log($"Dropping item: {item.prefab.name}");
+                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
+                droppedItem.transform.position += new Vector3(0, 1, 0);
+                droppedItems.Add(item.prefab);
             }
         }
 

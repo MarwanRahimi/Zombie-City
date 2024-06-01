@@ -25,11 +25,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] float meleeDamage = 25f;
     [SerializeField] AudioClip meleeSFX;
     [SerializeField][Range(0, 1)] float meleeSFXVolume = 1f;
-    [SerializeField] Animator knifeAnimator = null;
-    [SerializeField] GameObject knife;
 
     bool canShoot = true;
     bool isMeleeing = false;
+    GameObject knifeObject;
 
     // Cached references
     WeaponSwitcher myWeaponSwitcher = null;
@@ -37,15 +36,29 @@ public class Weapon : MonoBehaviour
 
     public AmmoType GetAmmoType()
     {
-        Debug.LogWarning($"{ammoType}.");
         return ammoType;
     }
 
     void Start()
     {
-        knife.SetActive(false);
         myWeaponSwitcher = GetComponentInParent<WeaponSwitcher>();
         myAudioSource = GetComponent<AudioSource>();
+
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.CompareTag("Knife"))
+            {
+                knifeObject = obj;
+                knifeObject.SetActive(false);
+                break;
+            }
+        }
+
+        if (knifeObject == null)
+        {
+            Debug.LogError("Knife GameObject not found.");
+        }
     }
 
     void Update()
@@ -94,50 +107,41 @@ public class Weapon : MonoBehaviour
         isMeleeing = true;
         myWeaponSwitcher.SetBoolCanSwitch(false);
 
-        // Activate the knife
-        if (knife != null)
+        if (knifeObject != null)
         {
-            knife.SetActive(true);
-            AudioSource knifeAudioSource = knife.GetComponent<AudioSource>();
-            if (knifeAudioSource != null && knifeAudioSource.enabled)
+            knifeObject.SetActive(true);
+            Animator knifeAnimator = knifeObject.GetComponent<Animator>();
+            if (knifeAnimator != null)
             {
-                knifeAudioSource.Stop();
-                knifeAudioSource.PlayOneShot(meleeSFX, meleeSFXVolume);
+                knifeAnimator.Play("KnifeAnimation");
             }
         }
-        gameObject.SetActive(false);
-
-        // Play the melee animation if the animator is assigned
-        if (knifeAnimator != null)
+        else
         {
-            knifeAnimator.Play("KnifeAnimation");
+            Debug.LogError("Knife GameObject not found.");
         }
 
-        // Process melee attack logic
+        gameObject.SetActive(false);
         ProcessMelee();
-
-        // Reset melee state and deactivate the knife after animation duration
-        Invoke(nameof(ResetMelee), 0.6f); 
+        Invoke(nameof(ResetMelee), 0.6f);
     }
-
 
     void ResetMelee()
     {
         isMeleeing = false;
 
-        // Deactivate the knife
-        if (knife != null)
+        if (knifeObject != null)
         {
-            knife.SetActive(false);
+            knifeObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("Knife GameObject not found.");
         }
 
-        // Re-enable the gun
         gameObject.SetActive(true);
-
-        // Allow switching weapons again
         myWeaponSwitcher.SetBoolCanSwitch(true);
     }
-
 
     void ProcessMelee()
     {

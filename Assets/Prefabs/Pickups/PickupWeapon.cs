@@ -9,50 +9,72 @@ public class PickupWeapon : MonoBehaviour
     private Camera FPCamera;
     private Ammo ammoSlot;
     private TextMeshProUGUI ammoText;
-    private Animator KnifeAnimator;
-    private GameObject Knife;
 
     private void Start()
     {
+        InitializeReferences();
+    }
+
+    private void InitializeReferences()
+    {
+        // Initialize WeaponSwitcher
+        GameObject switcherObject = GameObject.FindGameObjectWithTag("Switcher");
+        if (switcherObject != null)
+        {
+            weaponSwitcher = switcherObject.GetComponent<WeaponSwitcher>();
+            if (weaponSwitcher == null)
+            {
+                Debug.LogError("WeaponSwitcher component not found on switcherObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with tag 'Switcher' not found in the scene.");
+        }
+
+        // Initialize FPCamera
         GameObject playerCamObject = GameObject.FindGameObjectWithTag("MainCamera");
         if (playerCamObject != null)
         {
             FPCamera = playerCamObject.GetComponent<Camera>();
+            if (FPCamera == null)
+            {
+                Debug.LogError("Camera component not found on playerCamObject.");
+            }
         }
         else
         {
-            Debug.LogError("PlayerCam not found in the scene.");
+            Debug.LogError("GameObject with tag 'MainCamera' not found in the scene.");
         }
 
+        // Initialize AmmoSlot
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             ammoSlot = playerObject.GetComponent<Ammo>();
+            if (ammoSlot == null)
+            {
+                Debug.LogError("Ammo component not found on playerObject.");
+            }
         }
         else
         {
-            Debug.LogError("Player not found in the scene.");
+            Debug.LogError("GameObject with tag 'Player' not found in the scene.");
         }
 
+        // Initialize AmmoText
         GameObject ammoTextObject = GameObject.FindGameObjectWithTag("Ammo");
         if (ammoTextObject != null)
         {
             ammoText = ammoTextObject.GetComponent<TextMeshProUGUI>();
+            if (ammoText == null)
+            {
+                Debug.LogError("TextMeshProUGUI component not found on ammoTextObject.");
+            }
         }
         else
         {
-            Debug.LogError("AmmoText not found in the scene.");
-        }
-
-        GameObject knifeObj = GameObject.FindGameObjectWithTag("Knife");
-        if (knifeObj != null)
-        {
-            Knife = knifeObj;
-            KnifeAnimator = Knife.GetComponent<Animator>();
-        }
-        else
-        {
-            Debug.LogError("Knife not found in the scene.");
+            Debug.LogError("GameObject with tag 'Ammo' not found in the scene.");
         }
     }
 
@@ -67,7 +89,6 @@ public class PickupWeapon : MonoBehaviour
             {
                 GameObject newWeapon = Instantiate(weaponPrefab, weaponsParent.transform);
                 newWeapon.transform.localPosition = Vector3.zero;
-               
 
                 SetReferencesToNewWeapon(newWeapon);
 
@@ -83,7 +104,6 @@ public class PickupWeapon : MonoBehaviour
                 {
                     Debug.LogWarning("WeaponSwitcher reference is not set.");
                 }
-
             }
             else
             {
@@ -97,10 +117,8 @@ public class PickupWeapon : MonoBehaviour
 
     private void SetReferencesToNewWeapon(GameObject newWeapon)
     {
-
         if (newWeapon != null)
         {
-
             Weapon weaponScript = newWeapon.GetComponent<Weapon>();
             if (weaponScript != null)
             {
