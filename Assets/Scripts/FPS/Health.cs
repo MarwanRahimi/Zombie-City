@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 namespace Unity.FPS.Game
 {
     public class Health : MonoBehaviour
     {
         [Tooltip("Maximum amount of health")] public float MaxHealth = 10f;
+
+        [Tooltip("Damage dealt by this character")] public float Damage = 25f;
+
+        [Tooltip("Cooldown period between consecutive attacks")] public float DamageCooldown = 2f;
 
         [Tooltip("Health ratio at which the critical health vignette starts appearing")]
         public float CriticalHealthRatio = 0.3f;
@@ -22,6 +27,7 @@ namespace Unity.FPS.Game
         public bool IsCritical() => GetRatio() <= CriticalHealthRatio;
 
         bool m_IsDead;
+        bool canDealDamage = true; // to track cooldown state
 
         void Start()
         {
@@ -58,7 +64,7 @@ namespace Unity.FPS.Game
                 OnDamaged?.Invoke(trueDamageAmount, damageSource);
             }
 
-            Debug.Log("Zombie killed");
+            Debug.Log("Zombie took damage");
 
             HandleDeath();
         }
@@ -85,6 +91,42 @@ namespace Unity.FPS.Game
                 OnDie?.Invoke();
 
                 Destroy(gameObject);
+            }
+        }
+
+        public void DealDamage(GameObject target)
+        {
+            if (canDealDamage)
+            {
+                var characterStats = target.GetComponent<CharacterStats>();
+                if (characterStats != null)
+                {
+                    characterStats.TakeDamage(Damage);
+                    Debug.Log("Dealt " + Damage + " damage to " + target.name);
+                    StartCoroutine(DamageCooldownRoutine());
+                }
+                else
+                {
+                    Debug.Log("Target does not have a CharacterStats component");
+                }
+            }
+        }
+
+        IEnumerator DamageCooldownRoutine()
+        {
+            canDealDamage = false;
+            yield return new WaitForSeconds(DamageCooldown);
+            canDealDamage = true;
+        }
+
+        // Collision detection
+        void OnCollisionStay(Collision collision)
+        {
+            // Check if the other object has the CharacterStats component
+            var characterStats = collision.gameObject.GetComponent<CharacterStats>();
+            if (characterStats != null)
+            {
+                DealDamage(collision.gameObject);
             }
         }
     }
