@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.FPS.Game;
 
-public class Weapon : MonoBehaviour {
-
+public class Weapon : MonoBehaviour
+{
     // Configuration parameters
     [SerializeField] public Camera FPCamera = null;
     [SerializeField] ParticleSystem muzzleFlash = null;
@@ -20,11 +19,21 @@ public class Weapon : MonoBehaviour {
     [SerializeField] public Ammo ammoSlot;
     [SerializeField] AmmoType ammoType;
     [SerializeField] AudioClip gunshotSFX;
-    [SerializeField] [Range(0, 1)] float gunshotSFXVolume = 1f;
+    [SerializeField][Range(0, 1)] float gunshotSFXVolume = 1f;
     [SerializeField] public TextMeshProUGUI ammoText;
+    [SerializeField] float meleeRange = 2f;
+    [SerializeField] float meleeDamage = 25f;
+    [SerializeField] AudioClip meleeSFX;
+    [SerializeField][Range(0, 1)] float meleeSFXVolume = 1f;
+    [SerializeField] Animator knifeAnimator = null;
+    [SerializeField] GameObject knife;
 
-    // State variables
     bool canShoot = true;
+    bool isMeleeing = false;
+
+    // Cached references
+    WeaponSwitcher myWeaponSwitcher = null;
+    AudioSource myAudioSource;
 
     public AmmoType GetAmmoType()
     {
@@ -32,51 +41,35 @@ public class Weapon : MonoBehaviour {
         return ammoType;
     }
 
-    // Cached references
-    WeaponSwitcher myWeaponSwitcher = null;
-    AudioSource myAudioSource;
-    Animator myAnimator;
-
-    void Start() {
+    void Start()
+    {
+        knife.SetActive(false);
         myWeaponSwitcher = GetComponentInParent<WeaponSwitcher>();
         myAudioSource = GetComponent<AudioSource>();
-        myAnimator = GetComponent<Animator>();
     }
 
-    //Update is called once per frame
-    void Update() {
-        if (Input.GetMouseButton(0) && ammoSlot.GetCurrentAmmoAmount(ammoType) > 0 && canShoot) {
-            if (myAnimator != null) {
-                myAnimator.SetBool("isShooting", true);
-            }
-            StartCoroutine(Shoot());
+    void Update()
+    {
+        if (Input.GetMouseButton(0) && ammoSlot.GetCurrentAmmoAmount(ammoType) > 0 && canShoot)
+        {
+            Shoot();
         }
-
-        else if (!Input.GetMouseButton(0) || ammoSlot.GetCurrentAmmoAmount(ammoType) <= 0){
-            if (myAnimator != null) {
-                myAnimator.SetBool("isShooting", false);
-            }
+        else if (Input.GetKeyDown(KeyCode.V) && !isMeleeing)
+        {
+            MeleeAttack();
         }
 
         DisplayAmmo();
     }
 
-    void DisplayAmmo() {
-        if (ammoType == AmmoType.PistolBullets) {
-            int currentAmmo = ammoSlot.GetCurrentAmmoAmount(ammoType);
-            ammoText.text = "1911 - " + currentAmmo.ToString();
-        }
-        else if (ammoType == AmmoType.MPBullets) {
-            int currentAmmo = ammoSlot.GetCurrentAmmoAmount(ammoType);
-            ammoText.text = "MP7 - " + currentAmmo.ToString();
-        }
-        else if (ammoType == AmmoType.AKMBullets) {
-            int currentAmmo = ammoSlot.GetCurrentAmmoAmount(ammoType);
-            ammoText.text = "AKM - " + currentAmmo.ToString();
-        }
+    void DisplayAmmo()
+    {
+        int currentAmmo = ammoSlot.GetCurrentAmmoAmount(ammoType);
+        ammoText.text = ammoType.ToString() + " - " + currentAmmo.ToString();
     }
 
-    IEnumerator Shoot() {
+    void Shoot()
+    {
         canShoot = false;
         myWeaponSwitcher.SetBoolCanSwitch(false);
 
@@ -87,48 +80,125 @@ public class Weapon : MonoBehaviour {
         PlayMuzzleFlash();
         ProcessRayCast();
 
-        yield return new WaitForSeconds(timeBetweenShots);
+        Invoke(nameof(ResetShoot), timeBetweenShots);
+    }
 
+    void ResetShoot()
+    {
         myWeaponSwitcher.SetBoolCanSwitch(true);
         canShoot = true;
     }
 
-    void PlayMuzzleFlash() {
-        muzzleFlash.Play();
+    void MeleeAttack()
+    {
+        isMeleeing = true;
+        myWeaponSwitcher.SetBoolCanSwitch(false);
+
+        // Activate the knife
+        if (knife != null)
+        {
+            knife.SetActive(true);
+            AudioSource knifeAudioSource = knife.GetComponent<AudioSource>();
+            if (knifeAudioSource != null && knifeAudioSource.enabled)
+            {
+                knifeAudioSource.Stop();
+                knifeAudioSource.PlayOneShot(meleeSFX, meleeSFXVolume);
+            }
+        }
+        gameObject.SetActive(false);
+
+        // Play the melee animation if the animator is assigned
+        if (knifeAnimator != null)
+        {
+            Debug.Log("a");
+            knifeAnimator.SetTrigger("melee");
+        }
+
+        // Process melee attack logic
+        ProcessMelee();
+
+        // Reset melee state and deactivate the knife after animation duration
+        Invoke(nameof(ResetMelee), 0.5f); 
+    }
+
+
+    void ResetMelee()
+    {
+        isMeleeing = false;
+
+        // Deactivate the knife
+        if (knife != null)
+        {
+            knife.SetActive(false);
+        }
+
+        // Re-enable the gun
+        gameObject.SetActive(true);
+
+        // Allow switching weapons again
+        myWeaponSwitcher.SetBoolCanSwitch(true);
+    }
+
+
+    void ProcessMelee()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, meleeRange, ~LayerMask.GetMask("Player")))
+        {
+            Health target = hit.transform.GetComponent<Health>();
+            if (target != null)
+            {
+                target.TakeDamage(meleeDamage);
+                CreateZombieHitEffect(hit);
+            }
+            else
+            {
+                CreateTerrainHitEffect(hit);
+            }
+        }
+    }
+
+    void PlayMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.Play();
+        }
     }
 
     void ProcessRayCast()
     {
         RaycastHit hit;
-
         if (Physics.Raycast(FPCamera.transform.position, FPCamera.transform.forward, out hit, shootingRange, ~LayerMask.GetMask("Player")))
         {
             Health target = hit.transform.GetComponent<Health>();
-            Debug.Log("Hit object: " + hit.transform.name);
-            if (target == null)
-            {
-                CreateTerrainHitEffect(hit);
-            }
-            else
+            if (target != null)
             {
                 target.TakeDamage(weaponDamage);
                 CreateZombieHitEffect(hit);
             }
+            else
+            {
+                CreateTerrainHitEffect(hit);
+            }
         }
-        else
+    }
+
+    void CreateTerrainHitEffect(RaycastHit hit)
+    {
+        if (terrainHitEffect != null)
         {
-            return;
+            GameObject terrainHitEffectObject = Instantiate(terrainHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(terrainHitEffectObject, delayDestroyTerrainHitEffect);
         }
     }
 
-    void CreateTerrainHitEffect(RaycastHit hit) {
-        GameObject terrainHitEffectObject = Instantiate(terrainHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(terrainHitEffectObject, delayDestroyTerrainHitEffect);
+    void CreateZombieHitEffect(RaycastHit hit)
+    {
+        if (zombieHitEffect != null)
+        {
+            GameObject zombieHitEffectObject = Instantiate(zombieHitEffect, hit.point, Quaternion.LookRotation(hit.normal), hit.transform);
+            Destroy(zombieHitEffectObject, delayDestroyZombieHitEffect);
+        }
     }
-
-    void CreateZombieHitEffect(RaycastHit hit) {
-        GameObject zombieHitEffectObject = Instantiate(zombieHitEffect, hit.point, Quaternion.LookRotation(hit.normal), hit.transform);
-        Destroy(zombieHitEffectObject, delayDestroyZombieHitEffect);
-    }
-
 }
