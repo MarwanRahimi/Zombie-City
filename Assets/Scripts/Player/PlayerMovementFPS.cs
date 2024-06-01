@@ -26,7 +26,7 @@ public class PlayerMovementFPS : MonoBehaviour
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.C;
 
-    [Header("Ground Check")]//check if the player is on the ground
+    [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     bool grounded;
@@ -67,7 +67,7 @@ public class PlayerMovementFPS : MonoBehaviour
 
         startYScale = transform.localScale.y;
 
-        characterStats = GetComponent<CharacterStats>(); // Ensure this component is attached to the same GameObject
+        characterStats = GetComponent<CharacterStats>();
     }
 
     // Update is called once per frame
@@ -78,7 +78,7 @@ public class PlayerMovementFPS : MonoBehaviour
             grounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);
         }
 
-        if (grounded)//check the player grounded state and handle drag
+        if (grounded)
         {
             rb.drag = groundDrag;
         }
@@ -91,7 +91,6 @@ public class PlayerMovementFPS : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        //Handle Jumping Stamina Drain
         if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
             characterStats.PlayerJumping();
@@ -102,7 +101,7 @@ public class PlayerMovementFPS : MonoBehaviour
     {
         MovePlayer();
 
-        if (state == MovementState.sprinting)
+        if (state == MovementState.sprinting && characterStats.stamina.CurrentVal > 0)
         {
             characterStats.PlayerSprinting(characterStats.SprintStaminaDrain);
         }
@@ -113,17 +112,17 @@ public class PlayerMovementFPS : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(sprintKey) && state != MovementState.crouching && characterStats.stamina.CurrentVal > 0)
         {
-            readyToJump = false;
-
-            Jump();
-
-            Invoke(nameof(ResetJump), jumpCoolDown);
+            state = MovementState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+        else if (Input.GetKey(sprintKey) && state != MovementState.crouching && characterStats.stamina.CurrentVal <= 0)
+        {
+            state = MovementState.walking;
+            moveSpeed = walkSpeed;
         }
 
-        // handle crouching
         if (Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
@@ -141,31 +140,10 @@ public class PlayerMovementFPS : MonoBehaviour
 
     private void StateHandler()
     {
-        // Mode - Sprinting
-        if (grounded && Input.GetKey(sprintKey))
-        {
-            state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
-        }
-
-        // Mode - Crouching
-        else if (grounded && Input.GetKey(crouchKey))
-        {
-            state = MovementState.crouching;
-            moveSpeed = crouchSpeed;
-        }
-
-        // Mode - Walking
-        else if (grounded)
+        if (state == MovementState.sprinting && characterStats.stamina.CurrentVal <= 0)
         {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
-        }
-
-        // Mode - Air
-        else
-        {
-            state = MovementState.air;
         }
     }
 
