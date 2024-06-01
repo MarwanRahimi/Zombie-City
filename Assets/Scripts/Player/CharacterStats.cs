@@ -7,7 +7,10 @@ public class CharacterStats : MonoBehaviour
     private PlayerStats health;
 
     [SerializeField]
-    private PlayerStats stamina;
+    public PlayerStats stamina;
+
+    [SerializeField]
+    private GameObject deathUI;
 
     [Tooltip("Time in seconds without taking damage to start regenerating health")]
     public float HealthRegenCooldown = 5f;
@@ -27,6 +30,11 @@ public class CharacterStats : MonoBehaviour
         stamina.Initialize();
         isDead = false;
         isTakingDamage = false;
+    }
+
+    private void Start()
+    {
+        deathUI.SetActive(false);
     }
 
     void Update()
@@ -56,11 +64,16 @@ public class CharacterStats : MonoBehaviour
         if (isDead) return;
 
         health.CurrentVal -= amount;
+
         if (health.CurrentVal <= 0)
         {
             health.CurrentVal = 0;
             isDead = true;
-            Debug.Log("Player died");
+            deathUI.SetActive(true);
+                Time.timeScale = 0f;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            //Debug.Log("Player died");
             return;
         }
 

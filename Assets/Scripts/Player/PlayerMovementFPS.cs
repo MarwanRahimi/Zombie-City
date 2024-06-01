@@ -57,7 +57,6 @@ public class PlayerMovementFPS : MonoBehaviour
         air
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -73,13 +72,12 @@ public class PlayerMovementFPS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (groundCheck != null)
         {
             grounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);
         }
 
-        if (grounded )//check the player grounded state and handle drag
+        if (grounded)//check the player grounded state and handle drag
         {
             rb.drag = groundDrag;
         }
@@ -166,8 +164,8 @@ public class PlayerMovementFPS : MonoBehaviour
         //reset Y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-        
-        Debug.Log("Jumping");
+
+        //Debug.Log("Jumping");
     }
 
     private void ResetJump()
