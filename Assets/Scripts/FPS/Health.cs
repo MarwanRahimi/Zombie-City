@@ -138,7 +138,7 @@ namespace Unity.FPS.Game
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject switcher = GameObject.FindGameObjectWithTag("Switcher");
-
+            
             if (player == null)
             {
                 Debug.LogWarning("Player GameObject not found.");
@@ -146,13 +146,18 @@ namespace Unity.FPS.Game
             }
 
             Ammo ammoComponent = player.GetComponent<Ammo>();
-            WeaponSwitcher weaponSwitcher = player.GetComponentInChildren<WeaponSwitcher>();
+            WeaponSwitcher weaponSwitcher = switcher.GetComponent<WeaponSwitcher>();
 
-            if (ammoComponent == null || switcher == null)
+            if (ammoComponent == null || switcher == null || weaponSwitcher == null)
             {
                 if (ammoComponent == null)
                 {
                     Debug.LogWarning("Ammo component not found on the player GameObject.");
+                }
+
+                if (switcher == null)
+                {
+                    Debug.LogWarning("WeaponSwitcher component not found on the player.");
                 }
 
                 if (weaponSwitcher == null)
@@ -164,7 +169,6 @@ namespace Unity.FPS.Game
             }
 
             AmmoType currentAmmoType = weaponSwitcher.GetCurrentWeaponAmmoType();
-            Debug.LogWarning($"{currentAmmoType}.");
 
             float chance = Random.value;
             Debug.Log($"Drop chance for ammo: {chance}");
