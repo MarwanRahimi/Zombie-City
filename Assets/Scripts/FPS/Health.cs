@@ -23,10 +23,12 @@ namespace Unity.FPS.Game
             public GameObject prefab;
         }
 
-        public Item[] dropItems;
-        private static List<GameObject> droppedItems = new List<GameObject>();
-        private static int nextItemIndex = 0;
-        private static float dropChance = 0.2f;
+        public Item[] dropItems; 
+        private HashSet<GameObject> droppedItems = new HashSet<GameObject>();
+        private int nextItemIndex = 0;
+
+        private int[] dropAtCounts = new int[] { 3, 7, 11, 14 }; 
+        private int dropIndex = 0;
 
         bool m_IsDead;
 
@@ -95,36 +97,31 @@ namespace Unity.FPS.Game
             }
         }
 
-        void DropItems()
+
+        public void DropItems()
         {
-            // Ensure the next item index is within bounds
-            if (nextItemIndex < dropItems.Length)
+            int killedEnemies = EnemySpawner.Instance.maxSpawnNumber - EnemySpawner.Instance.remainingEnemies;
+            Debug.Log(killedEnemies);
+            // Check if the killed enemies count matches the next drop threshold
+            if (dropIndex < dropAtCounts.Length && killedEnemies == dropAtCounts[dropIndex])
             {
-                Item item = dropItems[nextItemIndex];
-
-                // Check if the item has already been dropped
-                if (!droppedItems.Contains(item.prefab))
+                // Ensure the next item index is within bounds
+                if (nextItemIndex < dropItems.Length)
                 {
-                    float roll = Random.value;
-                    Debug.Log($"Drop chance for item {item.prefab.name}: {roll}");
+                    Item item = dropItems[nextItemIndex];
 
-                    // Drop item based on drop chance or if it's one of the last remaining items
-                    if (roll <= dropChance || EnemySpawner.Instance.IsLastEnemy())
+                    // Check if the item has already been dropped
+                    if (!droppedItems.Contains(item.prefab))
                     {
                         Debug.Log($"Dropping item: {item.prefab.name}");
-                        GameObject droppedItem = Instantiate(item.prefab, transform.position, Quaternion.identity);
+                        GameObject droppedItem = Instantiate(item.prefab, transform.position, transform.rotation);
                         droppedItem.transform.position += new Vector3(0, 1, 0);
                         droppedItems.Add(item.prefab);
-                        dropChance = 0.3f;
                         nextItemIndex++;
                     }
-                }
-                else
-                {
-                    // If the item was already dropped, increment the index and try the next item
-                    nextItemIndex++;
-                    dropChance += 0.1f;
-                    DropItems();
+
+                    // Move to the next drop threshold
+                    dropIndex++;
                 }
             }
         }
@@ -172,7 +169,7 @@ namespace Unity.FPS.Game
 
             float chance = Random.value;
             Debug.Log($"Drop chance for ammo: {chance}");
-            if (chance <= 0.25f) // 50% chance to increase ammo
+            if (chance <= 0.25f) // 25% chance to increase ammo
             {
                 switch (currentAmmoType)
                 {

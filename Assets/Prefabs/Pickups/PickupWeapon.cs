@@ -9,10 +9,11 @@ public class PickupWeapon : MonoBehaviour
     private Camera FPCamera;
     private Ammo ammoSlot;
     private TextMeshProUGUI ammoText;
+    private Animator KnifeAnimator;
+    private GameObject Knife;
 
     private void Start()
     {
-        // Find and assign the references directly
         GameObject playerCamObject = GameObject.FindGameObjectWithTag("MainCamera");
         if (playerCamObject != null)
         {
@@ -41,6 +42,17 @@ public class PickupWeapon : MonoBehaviour
         else
         {
             Debug.LogError("AmmoText not found in the scene.");
+        }
+
+        GameObject knifeObj = GameObject.FindGameObjectWithTag("Knife");
+        if (knifeObj != null)
+        {
+            Knife = knifeObj;
+            KnifeAnimator = Knife.GetComponent<Animator>();
+        }
+        else
+        {
+            Debug.LogError("Knife not found in the scene.");
         }
     }
 
@@ -98,7 +110,7 @@ public class PickupWeapon : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("YourWeaponScript component not found on new weapon.");
+                Debug.LogWarning("Weapon script component not found on new weapon.");
             }
         }
         else

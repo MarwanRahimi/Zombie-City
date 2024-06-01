@@ -158,4 +158,5 @@ MonoBehaviour:
   dropItems:
   - prefab: {fileID: 7832011642590570564, guid: 8048a53499f84b44cad5f1d0f980dd99, type: 3}
   - prefab: {fileID: 1713620994075939166, guid: a28658458bc64cb4eb6da60c07389c5a, type: 3}
+  - prefab: {fileID: 8738109533960475793, guid: fefff0edcfbda1c46b635d31b7b2443a, type: 3}
   - prefab: {fileID: 540551778929704295, guid: 35164e75bb2d556438760dd83bd21039, type: 3}

@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
 
     private int currentSpawned = 0;
-    private int remainingEnemies;
+    public int remainingEnemies;
 
     void Awake()
     {

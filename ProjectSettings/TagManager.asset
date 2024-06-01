@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ammo
   - Switcher
+  - Knife
   layers:
   - Default
   - TransparentFX
