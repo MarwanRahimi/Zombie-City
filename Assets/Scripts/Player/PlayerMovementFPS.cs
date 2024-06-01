@@ -8,7 +8,6 @@ public class PlayerMovementFPS : MonoBehaviour
     private float moveSpeed = 0f;
     public float walkSpeed;
     public float sprintSpeed;
-
     public float groundDrag;
 
     public float jumpForce;
@@ -20,6 +19,11 @@ public class PlayerMovementFPS : MonoBehaviour
     public float crouchSpeed;
     public float crouchYScale;
     private float startYScale;
+
+    [Header("Stamina Drain")]
+    public float sprintStaminaDrain = 5f;
+    public float jumpStaminaDrain = 10f;
+    public float slideStaminaDrain = 15f;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -46,10 +50,10 @@ public class PlayerMovementFPS : MonoBehaviour
 
     Rigidbody rb;
 
+    private MovementState state;
     private CharacterStats characterStats;
 
-    private MovementState state;
-    public enum MovementState
+    private enum MovementState
     {
         walking,
         sprinting,
@@ -64,7 +68,6 @@ public class PlayerMovementFPS : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
-
         startYScale = transform.localScale.y;
 
         characterStats = GetComponent<CharacterStats>();
@@ -88,23 +91,13 @@ public class PlayerMovementFPS : MonoBehaviour
         }
 
         MyInput();
-        SpeedControl();
+        speedControl();
         StateHandler();
-
-        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
-        {
-            characterStats.PlayerJumping();
-        }
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
-
-        if (state == MovementState.sprinting && characterStats.stamina.CurrentVal > 0)
-        {
-            characterStats.PlayerSprinting(characterStats.SprintStaminaDrain);
-        }
     }
 
     private void MyInput()
@@ -112,38 +105,29 @@ public class PlayerMovementFPS : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(sprintKey) && state != MovementState.crouching && characterStats.stamina.CurrentVal > 0)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded && state != MovementState.crouching)
         {
-            state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
-        }
-        else if (Input.GetKey(sprintKey) && state != MovementState.crouching && characterStats.stamina.CurrentVal <= 0)
-        {
-            state = MovementState.walking;
-            moveSpeed = walkSpeed;
+            readyToJump = false;
+
+            if (characterStats.stamina.CurrentVal >= jumpStaminaDrain)
+            {
+                Jump();
+                characterStats.PlayerSprinting(jumpStaminaDrain);
+            }
+
+            Invoke(nameof(ResetJump), jumpCoolDown);
         }
 
         if (Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
-            moveSpeed = crouchSpeed;
+            characterStats.PlayerSprinting(slideStaminaDrain);
         }
 
         if (Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            moveSpeed = walkSpeed;
-        }
-    }
-
-    private void StateHandler()
-    {
-        if (state == MovementState.sprinting && characterStats.stamina.CurrentVal <= 0)
-        {
-            state = MovementState.walking;
-            moveSpeed = walkSpeed;
         }
     }
 
@@ -161,7 +145,7 @@ public class PlayerMovementFPS : MonoBehaviour
         }
     }
 
-    private void SpeedControl()
+    private void speedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
@@ -172,10 +156,17 @@ public class PlayerMovementFPS : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.DrawSphere(groundCheck.position, groundCheckRadius);
+        }
+    }
+
     private void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -183,4 +174,37 @@ public class PlayerMovementFPS : MonoBehaviour
     {
         readyToJump = true;
     }
+
+    private void StateHandler()
+    {
+        if (grounded && Input.GetKey(crouchKey))
+        {
+            state = MovementState.crouching;
+            moveSpeed = crouchSpeed;
+        }
+        else if (grounded && Input.GetKey(sprintKey))
+        {
+            if (characterStats.stamina.CurrentVal > 0)
+            {
+                state = MovementState.sprinting;
+                moveSpeed = sprintSpeed;
+                characterStats.PlayerSprinting(sprintStaminaDrain * Time.deltaTime);
+            }
+            else
+            {
+                state = MovementState.walking;
+                moveSpeed = walkSpeed;
+            }
+        }
+        else if (grounded)
+        {
+            state = MovementState.walking;
+            moveSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MovementState.air;
+        }
+    }
+
 }

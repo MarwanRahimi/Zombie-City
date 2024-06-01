@@ -74,7 +74,7 @@ public class Sliding : MonoBehaviour
         slideTime -= Time.deltaTime;
 
         // Drain stamina while sliding
-        characterStats.PlayerSliding(characterStats.SlideStaminaDrain);
+        characterStats.PlayerSliding(characterStats.slideStaminaDrain * Time.deltaTime);
 
         if (slideTime <= 0 || characterStats.stamina.CurrentVal <= 0)
         {
