@@ -55,7 +55,7 @@ public class PickupWeapon : MonoBehaviour
             {
                 GameObject newWeapon = Instantiate(weaponPrefab, weaponsParent.transform);
                 newWeapon.transform.localPosition = Vector3.zero;
-                newWeapon.transform.localRotation = Quaternion.identity;
+               
 
                 SetReferencesToNewWeapon(newWeapon);
 
