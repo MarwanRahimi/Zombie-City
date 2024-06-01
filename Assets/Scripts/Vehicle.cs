@@ -12,6 +12,16 @@ public class Vehicle : MonoBehaviour, IInteractable
     [SerializeField] private bool isFixed = false;
     public GameObject wheelPrefab;
     public GameObject armorPrefab;
+    public AudioClip failedInteractionClip;
+    public AudioClip successfulInteractionClip;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+    }
+
     public bool Interact(Interactor interactor)
     {
         var inventory = PlayerInventory.Instance;
@@ -27,6 +37,7 @@ public class Vehicle : MonoBehaviour, IInteractable
             Quaternion currentRotation = transform.rotation;
             Quaternion newRotation = Quaternion.Euler(0f, currentRotation.eulerAngles.y, 0f);
             transform.rotation = newRotation;
+            success();
             UpdatePrompt();
             return true;
         }
@@ -35,6 +46,7 @@ public class Vehicle : MonoBehaviour, IInteractable
             inventory.hasWheel = false;
             Destroy(gameObject);
             GameObject instantiatedVehicle = Instantiate(wheelPrefab, transform.position, transform.rotation);
+            success();
             UpdatePrompt();
             return true;
         }
@@ -43,17 +55,32 @@ public class Vehicle : MonoBehaviour, IInteractable
             inventory.hasArmor = false;
             Destroy(gameObject);
             Instantiate(armorPrefab, transform.position, transform.rotation);
+            success();
             UpdatePrompt();
             return true;
         }
         else if(isFixed){
-/*            SceneManager.LoadScene("Level2");
-*/        }
+            SceneManager.LoadScene("Level2");
+        }
 
+
+        if (failedInteractionClip != null && audioSource != null)
+        {
+            audioSource.clip = failedInteractionClip;
+            audioSource.Play();
+        }
         UpdatePrompt();
         return false;
     }
 
+    public void success()
+    {
+        if (successfulInteractionClip != null && audioSource != null)
+        {
+            audioSource.clip = successfulInteractionClip;
+            audioSource.Play();
+        }
+    }
     public void UpdatePrompt()
     {
         if(isFixed)

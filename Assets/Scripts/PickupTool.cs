@@ -5,6 +5,13 @@ using UnityEngine;
 public class ToolItem : MonoBehaviour
 {
     [SerializeField] private string toolType;
+    public AudioClip pickup;
+    private AudioSource audioSource;
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+    }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -13,6 +20,12 @@ public class ToolItem : MonoBehaviour
             var inventory = other.gameObject.GetComponent<PlayerInventory>();
             if (inventory != null)
             {
+                if (pickup != null && audioSource != null)
+                {
+                    Debug.LogWarning("no audio");
+                    audioSource.clip = pickup;
+                    audioSource.Play();
+                }
                 HandlePickup(inventory);
             }
             else

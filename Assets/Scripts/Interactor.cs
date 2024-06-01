@@ -39,7 +39,7 @@ public class Interactor : MonoBehaviour
                     _interactable.Interact(this);
 
                     // Restore the original interaction radius after a delay (you can adjust the duration as needed)
-                    Invoke("ResetInteractionRadius", 0.7f);
+                    Invoke("ResetInteractionRadius", 0.8f);
                 }
             }
         }
