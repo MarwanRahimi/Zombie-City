@@ -114,7 +114,7 @@ namespace Unity.FPS.Game
                     if (!droppedItems.Contains(item.prefab))
                     {
                         Debug.Log($"Dropping item: {item.prefab.name}");
-                        GameObject droppedItem = Instantiate(item.prefab, transform.position, transform.rotation);
+                        GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
                         droppedItem.transform.position += new Vector3(0, 1, 0);
                         droppedItems.Add(item.prefab);
                         nextItemIndex++;
