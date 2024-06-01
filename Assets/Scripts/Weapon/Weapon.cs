@@ -110,15 +110,14 @@ public class Weapon : MonoBehaviour
         // Play the melee animation if the animator is assigned
         if (knifeAnimator != null)
         {
-            Debug.Log("a");
-            knifeAnimator.SetTrigger("melee");
+            knifeAnimator.Play("KnifeAnimation");
         }
 
         // Process melee attack logic
         ProcessMelee();
 
         // Reset melee state and deactivate the knife after animation duration
-        Invoke(nameof(ResetMelee), 0.5f); 
+        Invoke(nameof(ResetMelee), 0.6f); 
     }
 
 
