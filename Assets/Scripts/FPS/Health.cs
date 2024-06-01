@@ -164,6 +164,7 @@ namespace Unity.FPS.Game
             }
 
             AmmoType currentAmmoType = weaponSwitcher.GetCurrentWeaponAmmoType();
+            Debug.LogWarning($"{currentAmmoType}.");
 
             float chance = Random.value;
             Debug.Log($"Drop chance for ammo: {chance}");

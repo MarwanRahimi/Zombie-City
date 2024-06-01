@@ -85,12 +85,10 @@ public class PickupWeapon : MonoBehaviour
 
     private void SetReferencesToNewWeapon(GameObject newWeapon)
     {
-        // Set FPCamera, ammoSlot, and ammoText to newWeapon
-        // You may need to adjust this according to how these references are used in the newWeapon's components
+
         if (newWeapon != null)
         {
-            // Example: Setting references to newWeapon's components
-            // Assuming the components are named appropriately and accessible via GetComponent
+
             Weapon weaponScript = newWeapon.GetComponent<Weapon>();
             if (weaponScript != null)
             {

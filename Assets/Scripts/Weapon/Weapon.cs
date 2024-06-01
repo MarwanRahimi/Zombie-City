@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour {
 
     public AmmoType GetAmmoType()
     {
+        Debug.LogWarning($"{ammoType}.");
         return ammoType;
     }
 

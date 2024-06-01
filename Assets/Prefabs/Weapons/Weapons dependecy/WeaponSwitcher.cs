@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WeaponSwitcher : MonoBehaviour
@@ -86,12 +87,14 @@ public class WeaponSwitcher : MonoBehaviour
         Weapon currentWeaponComponent = transform.GetChild(currentWeapon).GetComponent<Weapon>();
         if (currentWeaponComponent != null)
         {
+            Debug.LogWarning($"{currentWeapon}.");
             return currentWeaponComponent.GetAmmoType();
+
         }
         else
         {
             Debug.LogWarning("Current weapon does not have a Weapon component.");
-            return AmmoType.None; // Return a default value or handle this case as needed
+            return AmmoType.None; 
         }
     }
 }
