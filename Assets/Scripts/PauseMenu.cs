@@ -58,13 +58,6 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void GoToOptions()
-    {
-        Time.timeScale = 1f;
-        isPause = false; // Ensure isPause is reset when going to the options menu
-        SceneManager.LoadScene("Option");
-    }
-
     public void QuitGame()
     {
         Application.Quit();
