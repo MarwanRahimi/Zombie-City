@@ -6,47 +6,51 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform _interactionPoint;
     [SerializeField] private float _interactionRadius = 1.0f;
     [SerializeField] private LayerMask _interactableMask;
-    [SerializeField] private int _numFound;
-    private readonly Collider[] _colliders = new Collider[3];
-    private IInteractable _interactable;
     [SerializeField] private TextMeshProUGUI _promptText;
-    private bool isDisplayed = false;
+
+    private IInteractable _interactable;
+    private bool _isDisplayed = false;
+    private Collider[] _colliders = new Collider[3]; // Declare the _colliders array
 
     private void Update()
     {
-        _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionRadius, _colliders, _interactableMask);
-
-        if (_numFound > 0)
+        // Check if _interactionPoint is not null before accessing its position
+        if (_interactionPoint != null)
         {
-            _interactable = _colliders[0].GetComponent<IInteractable>();
+            int numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionRadius, _colliders, _interactableMask);
 
-            if (_interactable != null)
+            if (numFound > 0)
             {
-                if (!isDisplayed)
+                _interactable = _colliders[0]?.GetComponent<IInteractable>();
+
+                if (_interactable != null)
                 {
-                    if (_interactable is Vehicle)
+                    if (!_isDisplayed)
                     {
-                        Vehicle vehicle = (Vehicle)_interactable;
-                        vehicle.UpdatePrompt();
+                        if (_interactable is Vehicle vehicle)
+                        {
+                            vehicle.UpdatePrompt();
+                        }
+                        SetUp(_interactable.Prompt);
                     }
-                    SetUp(_interactable.Prompt);
-                }
 
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    _interactionRadius = 0.0f;
-
-                    _interactable.Interact(this);
-
-                    // Restore the original interaction radius after a delay (you can adjust the duration as needed)
-                    Invoke("ResetInteractionRadius", 0.8f);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        InteractWithInteractable();
+                    }
                 }
             }
-        }
-        else
-        {
-            if (_interactable != null) _interactable = null;
-            if (isDisplayed) Close();
+            else
+            {
+                if (_interactable != null)
+                {
+                    _interactable = null;
+                }
+                if (_isDisplayed)
+                {
+                    Close();
+                }
+            }
         }
     }
 
@@ -59,15 +63,25 @@ public class Interactor : MonoBehaviour
         }
     }
 
+    private void InteractWithInteractable()
+    {
+        if (_interactable != null)
+        {
+            _interactionRadius = 0.0f;
+            _interactable.Interact(this);
+            Invoke("ResetInteractionRadius", 0.8f);
+        }
+    }
+
     public void SetUp(string promptText)
     {
         _promptText.text = promptText;
-        isDisplayed = true;
+        _isDisplayed = true;
     }
 
     public void Close()
     {
-        isDisplayed = false;
+        _isDisplayed = false;
         _promptText.text = "";
     }
 

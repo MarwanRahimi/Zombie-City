@@ -41,8 +41,9 @@ namespace Unity.FPS.Game
                 }
 
                 // apply the damages
-                Health.TakeDamage(totalDamage);
+                Health.TakeDamage(totalDamage, damageSource); // Pass the damageSource parameter
             }
         }
+
     }
 }

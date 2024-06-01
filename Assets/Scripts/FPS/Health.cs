@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Unity.FPS.Game
 {
     public class Health : MonoBehaviour
     {
         [Tooltip("Maximum amount of health")] public float MaxHealth = 10f;
+
+        [Tooltip("Damage dealt by this character")] public float Damage = 25f;
+
+        [Tooltip("Cooldown period between consecutive attacks")] public float DamageCooldown = 2f;
+
         [Tooltip("Health ratio at which the critical health vignette starts appearing")]
         public float CriticalHealthRatio = 0.3f;
 
@@ -31,6 +37,7 @@ namespace Unity.FPS.Game
         private int dropIndex = 0;
 
         bool m_IsDead;
+        bool canDealDamage = true; // to track cooldown state
 
         void Start()
         {
@@ -51,7 +58,7 @@ namespace Unity.FPS.Game
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject damageSource)
         {
             if (Invincible)
                 return;
@@ -64,7 +71,7 @@ namespace Unity.FPS.Game
             float trueDamageAmount = healthBefore - CurrentHealth;
             if (trueDamageAmount > 0f)
             {
-                OnDamaged?.Invoke(trueDamageAmount, null);
+                OnDamaged?.Invoke(trueDamageAmount, damageSource);
             }
 
             HandleDeath();
@@ -97,6 +104,23 @@ namespace Unity.FPS.Game
             }
         }
 
+        public void DealDamage(GameObject target)
+        {
+            if (canDealDamage)
+            {
+                var characterStats = target.GetComponent<CharacterStats>();
+                if (characterStats != null)
+                {
+                    characterStats.TakeDamage(Damage);
+                    Debug.Log("Dealt " + Damage + " damage to " + target.name);
+                    StartCoroutine(DamageCooldownRoutine());
+                }
+                else
+                {
+                    Debug.Log("Target does not have a CharacterStats component");
+                }
+            }
+        }
 
         public void DropItems()
         {
@@ -202,6 +226,24 @@ namespace Unity.FPS.Game
                         Debug.LogWarning("Current weapon ammo type is not recognized.");
                         break;
                 }
+            }
+        }
+
+        IEnumerator DamageCooldownRoutine()
+        {
+            canDealDamage = false;
+            yield return new WaitForSeconds(DamageCooldown);
+            canDealDamage = true;
+        }
+
+
+        void OnCollisionStay(Collision collision)
+        {
+            // Check if the other object has the CharacterStats component
+            var characterStats = collision.gameObject.GetComponent<CharacterStats>();
+            if (characterStats != null)
+            {
+                DealDamage(collision.gameObject);
             }
         }
     }

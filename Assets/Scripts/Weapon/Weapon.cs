@@ -151,7 +151,7 @@ public class Weapon : MonoBehaviour
             Health target = hit.transform.GetComponent<Health>();
             if (target != null)
             {
-                target.TakeDamage(meleeDamage);
+                target.TakeDamage(meleeDamage, gameObject); // Pass gameObject as the damage source
                 CreateZombieHitEffect(hit);
             }
             else
@@ -160,6 +160,7 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+
 
     void PlayMuzzleFlash()
     {
@@ -177,7 +178,7 @@ public class Weapon : MonoBehaviour
             Health target = hit.transform.GetComponent<Health>();
             if (target != null)
             {
-                target.TakeDamage(weaponDamage);
+                target.TakeDamage(weaponDamage, gameObject); // Pass gameObject as the damage source
                 CreateZombieHitEffect(hit);
             }
             else

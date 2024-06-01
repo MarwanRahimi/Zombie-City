@@ -8,7 +8,7 @@ public class MainmenuButtonFunctionality : MonoBehaviour
     public void StartGame()
     {
         // change scene to the game scene
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("OpeningCutScene");
     }
 
     public void Options()
