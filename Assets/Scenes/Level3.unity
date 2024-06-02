@@ -4029,6 +4029,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 142089558431029252, guid: 320266e2c7d82ca4c9fa3b88af81df05, type: 3}
+      propertyPath: ammoSlot
+      value: 
+      objectReference: {fileID: 2070941055}
+    - target: {fileID: 142089558431029252, guid: 320266e2c7d82ca4c9fa3b88af81df05, type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 773813629}
     - target: {fileID: 164346899224066420, guid: 320266e2c7d82ca4c9fa3b88af81df05, type: 3}
       propertyPath: orientation
       value: 

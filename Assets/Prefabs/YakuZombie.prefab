@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  Damage: 25
+  Damage: 12
   DamageCooldown: 2
   CriticalHealthRatio: 0.3
   zombieSound1: {fileID: 8300000, guid: 7310dbfbf9c23294db1acd1d835f425a, type: 3}
