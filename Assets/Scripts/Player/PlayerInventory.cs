@@ -21,7 +21,8 @@ public class PlayerInventory : MonoBehaviour
     public bool hasWrench = false;
     public bool hasWheel = false;
     public bool hasArmor = false;
-    //public bool hasInflator = false;
+    public bool hasGas = false;
+    public bool hasSupplies = false;
 
     public bool PickupWeapon(Transform weaponToPickup)
     {

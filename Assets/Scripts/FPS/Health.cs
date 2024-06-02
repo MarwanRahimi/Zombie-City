@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace Unity.FPS.Game
 {
@@ -125,48 +126,50 @@ namespace Unity.FPS.Game
         public void DropItems()
         {
             int killedEnemies = EnemySpawner.Instance.maxSpawnNumber - EnemySpawner.Instance.remainingEnemies;
-            Debug.Log($"killedEnemies: {killedEnemies}, dropIndex: {dropIndex}, nextItemIndex: {nextItemIndex}");
-            Debug.Log(killedEnemies);
-            Debug.Log(dropAtCounts[dropIndex]);
+
             // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 3)
             {
-                Item item = dropItems[0];
-                Debug.Log($"Dropping item: {item.prefab.name}");
-                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
-                droppedItem.transform.position += new Vector3(0, 1, 0);
-                droppedItems.Add(item.prefab);
+                TryDropItem(0);
             }
             // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 7)
             {
-                Item item = dropItems[1];
-                Debug.Log($"Dropping item: {item.prefab.name}");
-                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
-                droppedItem.transform.position += new Vector3(0, 1, 0);
-                droppedItems.Add(item.prefab);
+                TryDropItem(1);
             }
             // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 11)
             {
-                Item item = dropItems[2];
-                Debug.Log($"Dropping item: {item.prefab.name}");
-                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
-                droppedItem.transform.position += new Vector3(0, 1, 0);
-                droppedItems.Add(item.prefab);
+                TryDropItem(2);
             }
             // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 14)
             {
-                Item item = dropItems[3];
-                Debug.Log($"Dropping item: {item.prefab.name}");
-                GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
-                droppedItem.transform.position += new Vector3(0, 1, 0);
-                droppedItems.Add(item.prefab);
+                TryDropItem(3);
             }
         }
 
-        public bool IsDead()
+        private void TryDropItem(int index)
+        {
+            if (index < 0 || index >= dropItems.Count())
+            {
+                return;
+            }
+
+            Item item = dropItems[index];
+            if (item == null || item.prefab == null)
+            {
+                return;
+            }
+
+            Debug.Log($"Dropping item: {item.prefab.name}");
+            GameObject droppedItem = Instantiate(item.prefab, transform.position, item.prefab.transform.rotation);
+            droppedItem.transform.position += new Vector3(0, 1, 0);
+            droppedItems.Add(droppedItem);
+        }
+    
+
+    public bool IsDead()
         {
             return m_IsDead;
         }
@@ -214,13 +217,13 @@ namespace Unity.FPS.Game
                 switch (currentAmmoType)
                 {
                     case AmmoType.PistolBullets:
-                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.PistolBullets, 7);
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.PistolBullets, 15);
                         break;
                     case AmmoType.MPBullets:
-                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.MPBullets, 10);
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.MPBullets, 20);
                         break;
                     case AmmoType.AKMBullets:
-                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.AKMBullets, 6);
+                        ammoComponent.IncreaseCurrentAmmoAmount(AmmoType.AKMBullets, 15);
                         break;
                     default:
                         Debug.LogWarning("Current weapon ammo type is not recognized.");
