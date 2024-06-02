@@ -23,6 +23,7 @@ namespace Unity.FPS.Game
         public UnityAction<float> OnHealed;
         public UnityAction OnDie;
 
+        private Animator zombieAnimator;
         public float CurrentHealth { get; set; }
         public bool Invincible;
 
@@ -42,6 +43,7 @@ namespace Unity.FPS.Game
         {
             CurrentHealth = MaxHealth;
             audioSource = GetComponent<AudioSource>();
+            zombieAnimator = GetComponent<Animator>();
             if (audioSource != null )
             {
                 PlayRandomZombieSound();
@@ -116,10 +118,10 @@ namespace Unity.FPS.Game
                 m_IsDead = true;
                 OnDie?.Invoke();
                 DropItems();
-
-                Destroy(gameObject);
                 IncreasePlayerAmmo();
                 EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
+                zombieAnimator.Play("Death");
+                Destroy(gameObject, 5.0f);
             }
         }
 
