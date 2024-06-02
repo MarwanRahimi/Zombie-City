@@ -69584,6 +69584,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2203835893766512856, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
+      propertyPath: deathUI
+      value: 
+      objectReference: {fileID: 1337355825}
+    - target: {fileID: 2203835893766512856, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
+      propertyPath: health.bar
+      value: 
+      objectReference: {fileID: 1044662968}
+    - target: {fileID: 2203835893766512856, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
+      propertyPath: stamina.bar
+      value: 
+      objectReference: {fileID: 1315719074}
     - target: {fileID: 3496347247615266203, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
       propertyPath: deathUI
       value: 

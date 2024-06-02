@@ -2629,8 +2629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847d31ad71dfce243913d21041448db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  Damage: 25
+  MaxHealth: 140
+  Damage: 10
   DamageCooldown: 2
   CriticalHealthRatio: 0.3
   zombieSound1: {fileID: 8300000, guid: 7310dbfbf9c23294db1acd1d835f425a, type: 3}
