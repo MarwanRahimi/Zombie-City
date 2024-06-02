@@ -159,6 +159,6 @@ MonoBehaviour:
   Invincible: 0
   dropItems:
   - prefab: {fileID: 0}
-  - prefab: {fileID: 140723211087028577, guid: cf58bb26dd4977d4fa460023657cb567, type: 3}
-  - prefab: {fileID: 0}
   - prefab: {fileID: 7087841645959705470, guid: 115aafba792749441a95f0b534c68f51, type: 3}
+  - prefab: {fileID: 0}
+  - prefab: {fileID: 140723211087028577, guid: cf58bb26dd4977d4fa460023657cb567, type: 3}

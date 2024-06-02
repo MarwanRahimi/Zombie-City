@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     private static PlayerInventory _instance;
+    private TextMeshProUGUI _objectiveText;
+
     public static PlayerInventory Instance
     {
         get
@@ -36,6 +39,15 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
+    void Start()
+    {
+        GameObject objectiveObject = GameObject.FindGameObjectWithTag("Objective");
+        if (objectiveObject != null)
+        {
+            _objectiveText = objectiveObject.GetComponent<TextMeshProUGUI>();
+            _objectiveText.text = "Current Objective: Repair the vehicle";
+        }
+    }
     private void Awake()
     {
         if (_instance != null && _instance != this)

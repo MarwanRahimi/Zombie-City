@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class VehicleCheck : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _currPrompt;
     public string Prompt => _currPrompt;
+    [SerializeField] private TextMeshProUGUI _objectiveText;
 
     public AudioClip failedInteractionClip;
     private AudioSource audioSource;
@@ -14,6 +16,10 @@ public class VehicleCheck : MonoBehaviour, IInteractable
 
     void Start()
     {
+        if(_objectiveText != null)
+        {
+            _objectiveText.text = "Current Objective: Gather supplies from zombies!";
+        }
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
     }

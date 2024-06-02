@@ -18,8 +18,12 @@ public class Vehicle : MonoBehaviour, IInteractable
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Stop();
+        // Find the player's AudioSource
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            audioSource = player.GetComponent<AudioSource>();
+        }
     }
 
     public bool Interact(Interactor interactor)
@@ -59,10 +63,11 @@ public class Vehicle : MonoBehaviour, IInteractable
             UpdatePrompt();
             return true;
         }
-        else if(isFixed){
+        else if (isFixed)
+        {
             SceneManager.LoadScene("Level2");
+            return true;
         }
-
 
         if (failedInteractionClip != null && audioSource != null)
         {
@@ -73,7 +78,7 @@ public class Vehicle : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void success()
+    private void success()
     {
         if (successfulInteractionClip != null && audioSource != null)
         {
@@ -81,12 +86,12 @@ public class Vehicle : MonoBehaviour, IInteractable
             audioSource.Play();
         }
     }
+
     public void UpdatePrompt()
     {
-        if(isFixed)
+        if (isFixed)
         {
             _currPrompt = "Proceed to next area";
-
         }
         else if (!hasUsedWrench && PlayerInventory.Instance.hasWrench)
         {
@@ -112,12 +117,9 @@ public class Vehicle : MonoBehaviour, IInteractable
         {
             _currPrompt = "Find armor to fix vehicle";
         }
-        else 
+        else
         {
             _currPrompt = "Find a repair tool!";
         }
-        
     }
-
-
 }

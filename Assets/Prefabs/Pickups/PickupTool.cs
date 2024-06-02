@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ToolItem : MonoBehaviour
 {
     [SerializeField] private string toolType;
     [SerializeField] private RotationAxis rotationAxis = RotationAxis.Z;
+    private TextMeshProUGUI _objectiveText;
 
     public AudioClip pickup;
-    private AudioSource audioSource;
+
     void Start()
     {
+        GameObject objectiveObject = GameObject.FindGameObjectWithTag("Objective");
+        if (objectiveObject != null)
+        {
+            _objectiveText = objectiveObject.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -23,7 +30,7 @@ public class ToolItem : MonoBehaviour
             {
                 if (pickup != null && audioSource != null)
                 {
-                    Debug.LogWarning("no audio");
+                    Debug.Log("Playing pickup sound.");
                     audioSource.clip = pickup;
                     audioSource.Play();
                 }
@@ -31,7 +38,7 @@ public class ToolItem : MonoBehaviour
             }
             else
             {
-                Debug.Log("not found");
+                Debug.Log("Inventory not found.");
             }
             Destroy(gameObject);
         }
@@ -49,9 +56,11 @@ public class ToolItem : MonoBehaviour
                 break;
             case "armor":
                 inventory.hasArmor = true;
+                UpdateObjectiveText("Return to the vehicle!");
                 break;
             case "gas":
                 inventory.hasGas = true;
+                UpdateObjectiveText("Return to the vehicle!");
                 break;
             case "food":
                 inventory.hasSupplies = true;
@@ -62,6 +71,18 @@ public class ToolItem : MonoBehaviour
         }
     }
 
+    private void UpdateObjectiveText(string message)
+    {
+        if (_objectiveText != null)
+        {
+            _objectiveText.text = message;
+        }
+        else
+        {
+            Debug.LogWarning("Objective TextMeshProUGUI is not assigned.");
+        }
+    }
+
     public enum RotationAxis
     {
         None,
@@ -69,6 +90,7 @@ public class ToolItem : MonoBehaviour
         Y,
         Z
     }
+
     void Update()
     {
         switch (rotationAxis)
