@@ -61,8 +61,9 @@ public class EnemySpawner : MonoBehaviour
 
         float randomX = Random.Range(bounds.min.x, bounds.max.x);
         float randomZ = Random.Range(bounds.min.z, bounds.max.z);
+        float randomY = Random.Range(bounds.min.y, bounds.max.y);
 
-        return new Vector3(randomX, transform.position.y, randomZ);
+        return new Vector3(randomX, randomY, randomZ);
     }
 
     public void OnEnemyKilled()
