@@ -27,6 +27,12 @@ public class DeathMenu : MonoBehaviour
     {
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            Destroy(player);
+        }
         // Resume the game
         Time.timeScale = 1f;
         // Hide the cursor again

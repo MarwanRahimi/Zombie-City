@@ -16,7 +16,9 @@ namespace Unity.FPS.Game
 
         [Tooltip("Health ratio at which the critical health vignette starts appearing")]
         public float CriticalHealthRatio = 0.3f;
-
+        AudioSource audioSource;
+        public AudioClip zombieSound1;
+        public AudioClip zombieSound2;
         public UnityAction<float, GameObject> OnDamaged;
         public UnityAction<float> OnHealed;
         public UnityAction OnDie;
@@ -43,6 +45,26 @@ namespace Unity.FPS.Game
         void Start()
         {
             CurrentHealth = MaxHealth;
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource != null )
+            {
+                InvokeRepeating("PlayRandomZombieSound", 0f, 5f);
+            }
+        }
+
+        void PlayRandomZombieSound()
+        {
+            // Select a random zombie sound
+            int randomIndex = Random.Range(0, 2);
+            if (randomIndex == 0)
+            {
+                audioSource.clip = zombieSound1;
+            }
+            else
+            {
+                audioSource.clip = zombieSound2;
+            }
+            audioSource.Play();
         }
 
         public void Heal(float healAmount)

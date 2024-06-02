@@ -37,16 +37,33 @@ public class WeaponSwitcher : MonoBehaviour
         }
     }
 
+    private float scrollCooldown = 0.2f; 
+    private float lastScrollTime;
+
     private void ProcessScrollWheel()
     {
-        float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollDelta != 0)
+        if (Time.time - lastScrollTime >= scrollCooldown)
         {
-            int newWeaponIndex = currentWeapon + (scrollDelta > 0 ? 1 : -1);
-            newWeaponIndex = Mathf.Clamp(newWeaponIndex, 0, transform.childCount - 1);
-            SetCurrentWeapon(newWeaponIndex);
+            float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollDelta != 0)
+            {
+                int scrollDirection = Mathf.RoundToInt(Mathf.Sign(scrollDelta));
+                int newWeaponIndex = currentWeapon + scrollDirection;
+                if (newWeaponIndex < 0)
+                {
+                    newWeaponIndex = transform.childCount - 1;
+                }
+                else if (newWeaponIndex >= transform.childCount)
+                {
+                    newWeaponIndex = 0;
+                }
+                SetCurrentWeapon(newWeaponIndex);
+                lastScrollTime = Time.time;
+            }
         }
     }
+
+
 
     public void SetCurrentWeapon(int weaponIndex)
     {

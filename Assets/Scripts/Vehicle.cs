@@ -18,7 +18,6 @@ public class Vehicle : MonoBehaviour, IInteractable
 
     void Start()
     {
-        // Find the player's AudioSource
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -65,6 +64,12 @@ public class Vehicle : MonoBehaviour, IInteractable
         }
         else if (isFixed)
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player != null)
+            {
+                Destroy(player);
+            }
             SceneManager.LoadScene("Level2");
             return true;
         }

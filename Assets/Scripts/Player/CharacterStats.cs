@@ -30,6 +30,10 @@ public class CharacterStats : MonoBehaviour
     [Tooltip("Time in seconds to start regenerating stamina after it reaches 0")]
     public float StaminaExhaustedCooldown = 5f;
 
+    public AudioClip takeDamage1;
+    public AudioClip takeDamage2;
+
+
     private Coroutine healthRegenCooldownCoroutine;
     private Coroutine healthRegenCoroutine;
     private Coroutine staminaRegenCooldownCoroutine;
@@ -40,7 +44,7 @@ public class CharacterStats : MonoBehaviour
     private bool isDead;
     private bool isTakingDamage;
     private bool isSprinting;
-
+    AudioSource audioSource;
     private void Awake()
     {
         health.Initialize();
@@ -48,6 +52,7 @@ public class CharacterStats : MonoBehaviour
         isDead = false;
         isTakingDamage = false;
         isSprinting = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -93,7 +98,19 @@ public class CharacterStats : MonoBehaviour
             Cursor.visible = true;
             return;
         }
-
+        if (audioSource != null)
+        {
+            int randomIndex = Random.Range(0, 2);
+            if (randomIndex == 0)
+            {
+                audioSource.clip = takeDamage1;
+            }
+            else
+            {
+                audioSource.clip = takeDamage2;
+            }
+            audioSource.Play();
+        }
         isTakingDamage = true;
         lastDamageTime = Time.time;
         if (healthRegenCoroutine != null)

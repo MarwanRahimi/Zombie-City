@@ -32306,6 +32306,8 @@ MonoBehaviour:
   StaminaRegenCooldown: 2
   StaminaRegenRate: 10
   StaminaExhaustedCooldown: 5
+  takeDamage1: {fileID: 8300000, guid: 35f290dc297091642b5e59ab222ab41d, type: 3}
+  takeDamage2: {fileID: 8300000, guid: 52021a4917ef96643aa7f2108799cb74, type: 3}
 --- !u!114 &1682318732
 MonoBehaviour:
   m_ObjectHideFlags: 0
