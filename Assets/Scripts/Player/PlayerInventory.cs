@@ -26,7 +26,7 @@ public class PlayerInventory : MonoBehaviour
     public bool hasGas = false;
     public bool hasSupplies = false;
     public bool hasKey = false;
-
+    public bool hasCure = false;
     public bool PickupWeapon(Transform weaponToPickup)
     {
         if (weaponSocket)
@@ -35,7 +35,6 @@ public class PlayerInventory : MonoBehaviour
             weaponToPickup.transform.localPosition = Vector3.zero;
             return true;
         }
-
         return false;
     }
 

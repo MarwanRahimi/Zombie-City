@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     private int currentSpawned = 0;
     public int remainingEnemies;
 
+    private VehicleCheck3 vehicleCheck;
+
     void Awake()
     {
         if (Instance == null)
@@ -30,6 +32,9 @@ public class EnemySpawner : MonoBehaviour
     {
         remainingEnemies = maxSpawnNumber;
         InvokeRepeating(nameof(SpawnEnemy), 0f, spawnInterval);
+
+        // Find the VehicleCheck3 component
+        vehicleCheck = FindObjectOfType<VehicleCheck3>();
     }
 
     void SpawnEnemy()
@@ -71,6 +76,12 @@ public class EnemySpawner : MonoBehaviour
         remainingEnemies--;
         Debug.Log("Remaining Enemies: " + remainingEnemies);
 
+        // Notify the VehicleCheck3 component
+        if (vehicleCheck != null)
+        {
+            vehicleCheck.UpdateEnemyCount();
+        }
+
         if (remainingEnemies <= 0)
         {
             Debug.Log("All zombies killed.");
@@ -81,5 +92,4 @@ public class EnemySpawner : MonoBehaviour
     {
         return remainingEnemies == 1;
     }
-
 }

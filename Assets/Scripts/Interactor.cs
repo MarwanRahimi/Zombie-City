@@ -39,6 +39,10 @@ public class Interactor : MonoBehaviour
                         {
                             vehicleCheck2.UpdatePrompt();
                         }
+                        else if (_interactable is VehicleCheck3 VehicleCheck3)
+                        {
+                            VehicleCheck3.UpdatePrompt();
+                        }
                         SetUp(_interactable.Prompt);
                     }
 

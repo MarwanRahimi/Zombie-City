@@ -34,9 +34,6 @@ namespace Unity.FPS.Game
 
         public Item[] dropItems; 
         private HashSet<GameObject> droppedItems = new HashSet<GameObject>();
-        private int nextItemIndex = 0;
-
-        private int[] dropAtCounts = new int[] { 3, 7, 11, 14 }; 
 
         bool m_IsDead;
         bool canDealDamage = true; // to track cooldown state
@@ -103,8 +100,6 @@ namespace Unity.FPS.Game
         public void Kill()
         {
             CurrentHealth = 0f;
-
-            // call OnDamage action
             OnDamaged?.Invoke(MaxHealth, null);
 
             HandleDeath();
@@ -145,7 +140,7 @@ namespace Unity.FPS.Game
             }
         }
 
-        public void DropItems()
+        public void DropItems() //Static item drops
         {
             int killedEnemies = EnemySpawner.Instance.maxSpawnNumber - EnemySpawner.Instance.remainingEnemies;
 
@@ -154,20 +149,21 @@ namespace Unity.FPS.Game
             {
                 TryDropItem(0);
             }
-            // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 7)
             {
                 TryDropItem(1);
             }
-            // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 11)
             {
                 TryDropItem(2);
             }
-            // Check if the killed enemies count matches the next drop threshold
             if (killedEnemies == 14)
             {
                 TryDropItem(3);
+            }
+            if (killedEnemies == 20)
+            {
+                TryDropItem(4);
             }
         }
 

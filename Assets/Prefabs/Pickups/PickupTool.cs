@@ -8,6 +8,7 @@ public class ToolItem : MonoBehaviour
     [SerializeField] private string toolType;
     [SerializeField] private RotationAxis rotationAxis = RotationAxis.Z;
     private TextMeshProUGUI _objectiveText;
+    private VehicleCheck3 vehicleCheck;
 
     public AudioClip pickup;
 
@@ -18,6 +19,8 @@ public class ToolItem : MonoBehaviour
         {
             _objectiveText = objectiveObject.GetComponent<TextMeshProUGUI>();
         }
+
+        vehicleCheck = FindObjectOfType<VehicleCheck3>();
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -72,6 +75,13 @@ public class ToolItem : MonoBehaviour
                 if (inventory.hasKey)
                 {
                     UpdateObjectiveText("Current Objective: Return to the vehicle!");
+                }
+                break;
+            case "cure":
+                inventory.hasCure = true;
+                if (vehicleCheck != null)
+                {
+                    vehicleCheck.CurePickup();
                 }
                 break;
             default:
