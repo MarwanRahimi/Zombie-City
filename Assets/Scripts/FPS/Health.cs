@@ -48,7 +48,8 @@ namespace Unity.FPS.Game
             audioSource = GetComponent<AudioSource>();
             if (audioSource != null )
             {
-                InvokeRepeating("PlayRandomZombieSound", 0f, 5f);
+                PlayRandomZombieSound();
+                /*InvokeRepeating("PlayRandomZombieSound", 0f, 5f);*/
             }
         }
 

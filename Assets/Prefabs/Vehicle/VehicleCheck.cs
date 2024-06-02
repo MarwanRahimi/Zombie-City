@@ -52,13 +52,12 @@ public class VehicleCheck : MonoBehaviour, IInteractable
 
         if (inventory.hasGas && inventory.hasSupplies)
         {
-            //destroy player before moving to new scene.
+            SceneManager.LoadScene("Level3");
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 Destroy(player);
             }
-            SceneManager.LoadScene("Level3");
             return true;
         }
         else

@@ -56,11 +56,17 @@ public class ToolItem : MonoBehaviour
                 break;
             case "armor":
                 inventory.hasArmor = true;
-                UpdateObjectiveText("Return to the vehicle!");
+                if (inventory.hasWheel)
+                {
+
+                    UpdateObjectiveText("Return to the vehicle!");
+                }
                 break;
             case "gas":
                 inventory.hasGas = true;
+                if (inventory.hasSupplies) { 
                 UpdateObjectiveText("Return to the vehicle!");
+                }
                 break;
             case "food":
                 inventory.hasSupplies = true;
@@ -71,7 +77,7 @@ public class ToolItem : MonoBehaviour
         }
     }
 
-    private void UpdateObjectiveText(string message)
+    public void UpdateObjectiveText(string message)
     {
         if (_objectiveText != null)
         {
