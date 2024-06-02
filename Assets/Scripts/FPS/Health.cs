@@ -116,6 +116,7 @@ namespace Unity.FPS.Game
                 m_IsDead = true;
                 OnDie?.Invoke();
                 DropItems();
+
                 Destroy(gameObject);
                 IncreasePlayerAmmo();
                 EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
