@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using UnityEngine.AI;
 
 namespace Unity.FPS.Game
 {
@@ -24,6 +25,8 @@ namespace Unity.FPS.Game
         public UnityAction OnDie;
 
         private Animator zombieAnimator;
+
+        private GameObject player;
         public float CurrentHealth { get; set; }
         public bool Invincible;
 
@@ -49,6 +52,8 @@ namespace Unity.FPS.Game
                 PlayRandomZombieSound();
                 /*InvokeRepeating("PlayRandomZombieSound", 0f, 5f);*/
             }
+
+            player = GameObject.Find("Player");
         }
 
         void PlayRandomZombieSound()
@@ -121,7 +126,23 @@ namespace Unity.FPS.Game
                 IncreasePlayerAmmo();
                 EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
                 zombieAnimator.Play("Death");
+                GetComponent<NavMeshAgent>().isStopped = true;
+                
                 Destroy(gameObject, 5.0f);
+            }
+        }
+
+        private void Update()
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) < 3.0f)
+            {
+                zombieAnimator.SetBool("isChasing", false);
+                DealDamage(player);
+            }
+            else
+            {
+                zombieAnimator.SetBool("isChasing", true);
+
             }
         }
 
@@ -133,6 +154,7 @@ namespace Unity.FPS.Game
                 if (characterStats != null)
                 {
                     characterStats.TakeDamage(Damage);
+                    zombieAnimator.Play("Attack");
                     Debug.Log("Dealt " + Damage + " damage to " + target.name);
                     StartCoroutine(DamageCooldownRoutine());
                 }

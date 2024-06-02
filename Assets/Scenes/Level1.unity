@@ -49086,8 +49086,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701c954af656dcb4bbea268ecc7af0e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawnNumber: 15
-  spawnInterval: 2
+  maxSpawnNumber: 1
+  spawnInterval: 4
   enemyPrefab: {fileID: 4800202038459365761, guid: 66050bb89c9463148b1665fd139f4159, type: 3}
   remainingEnemies: 0
 --- !u!4 &1484817652

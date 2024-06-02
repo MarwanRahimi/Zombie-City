@@ -199,7 +199,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  Damage: 25
-  DamageCooldown: 2
+  Damage: 5
+  DamageCooldown: 5
   CriticalHealthRatio: 0.3
   zombieSound1: {fileID: 8300000, guid: 7310dbfbf9c23294db1acd1d835f425a, type: 3}
   zombieSound2: {fileID: 8300000, guid: 3339c64f57f2ba54d8b155ca94c0cc74, type: 3}

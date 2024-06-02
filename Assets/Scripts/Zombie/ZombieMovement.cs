@@ -11,6 +11,8 @@ public class ZombieMovement : MonoBehaviour
     [SerializeField]
     private Transform playerReference;
 
+    CharacterStats playerStats;
+
     void Start()
     {
         zombieNavMesh = GetComponent<NavMeshAgent>();
@@ -21,5 +23,8 @@ public class ZombieMovement : MonoBehaviour
     void Update()
     {
         zombieNavMesh.SetDestination(playerReference.position);   
+        
+
+
     }
 }
