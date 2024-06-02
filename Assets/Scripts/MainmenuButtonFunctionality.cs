@@ -7,6 +7,12 @@ public class MainmenuButtonFunctionality : MonoBehaviour
 {
     public void StartGame()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            Destroy(player);
+        }
         // change scene to the game scene
         SceneManager.LoadScene("OpeningCutScene");
     }
