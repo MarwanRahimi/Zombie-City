@@ -22,6 +22,13 @@ public class Weapon : MonoBehaviour
     private Quaternion initialRotation;
     private List<GameObject> bulletPool;
 
+    private AudioSource pistolAudioSource;
+
+    private void Awake()
+    {
+        pistolAudioSource = GetComponent<AudioSource>();
+    }
+
     void Start()
     {
         initialPosition = transform.localPosition;
@@ -69,6 +76,8 @@ public class Weapon : MonoBehaviour
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = bulletSpawnPoint.forward * bulletSpeed;
+
+            pistolAudioSource.Play();
 
             ApplyRecoil();
         }
