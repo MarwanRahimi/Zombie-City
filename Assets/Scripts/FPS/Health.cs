@@ -120,15 +120,19 @@ namespace Unity.FPS.Game
             // call OnDie action
             if (CurrentHealth <= 0f)
             {
+                Debug.Log("Is dead");
+
+                if(EnemySpawner.Instance)
+                    EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
+                
+                zombieAnimator.Play("Death");
+                Destroy(gameObject, 5.0f);
+                GetComponent<NavMeshAgent>().isStopped = true;
                 m_IsDead = true;
                 OnDie?.Invoke();
                 DropItems();
                 IncreasePlayerAmmo();
-                EnemySpawner.Instance.OnEnemyKilled(); //increment enemies killed in spawner class
-                zombieAnimator.Play("Death");
-                GetComponent<NavMeshAgent>().isStopped = true;
                 
-                Destroy(gameObject, 5.0f);
             }
         }
 

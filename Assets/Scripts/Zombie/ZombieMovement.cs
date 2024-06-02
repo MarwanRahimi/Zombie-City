@@ -23,8 +23,5 @@ public class ZombieMovement : MonoBehaviour
     void Update()
     {
         zombieNavMesh.SetDestination(playerReference.position);   
-        
-
-
     }
 }
