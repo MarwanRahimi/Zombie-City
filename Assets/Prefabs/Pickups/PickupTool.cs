@@ -56,12 +56,12 @@ public class ToolItem : MonoBehaviour
                 break;
             case "armor":
                 inventory.hasArmor = true;
-                UpdateObjectiveText("Use tools on the vehicle!");
+                UpdateObjectiveText("Current Objective: Use tools on the vehicle!");
                 break;
             case "gas":
                 inventory.hasGas = true;
                 if (inventory.hasSupplies) { 
-                UpdateObjectiveText("Return to the vehicle!");
+                UpdateObjectiveText("Current Objective: Return to the vehicle!");
                 }
                 break;
             case "food":
@@ -69,6 +69,10 @@ public class ToolItem : MonoBehaviour
                 break;
             case "key":
                 inventory.hasKey = true;
+                if (inventory.hasKey)
+                {
+                    UpdateObjectiveText("Current Objective: Return to the vehicle!");
+                }
                 break;
             default:
                 Debug.LogWarning($"Unknown tool type: {toolType}");

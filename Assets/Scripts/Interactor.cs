@@ -30,11 +30,16 @@ public class Interactor : MonoBehaviour
                         if (_interactable is Vehicle vehicle)
                         {
                             vehicle.UpdatePrompt();
-                        } else if (_interactable is VehicleCheck vehicleCheck)
+                        } 
+                        else if (_interactable is VehicleCheck vehicleCheck)
                         {
                             vehicleCheck.UpdatePrompt();
+                        } 
+                        else if (_interactable is VehicleCheck2 vehicleCheck2)
+                        {
+                            vehicleCheck2.UpdatePrompt();
                         }
-                            SetUp(_interactable.Prompt);
+                        SetUp(_interactable.Prompt);
                     }
 
                     if (Input.GetKeyDown(KeyCode.F))
