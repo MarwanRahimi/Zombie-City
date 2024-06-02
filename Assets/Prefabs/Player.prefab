@@ -426,6 +426,9 @@ GameObject:
   - component: {fileID: 6770457967198508741}
   - component: {fileID: 7358158650919456011}
   - component: {fileID: 182580406124468936}
+  - component: {fileID: 9182703871215733938}
+  - component: {fileID: 6781839467132604603}
+  - component: {fileID: 5287567767856655836}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -516,13 +519,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c954213a410b602469466f0972b1e999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  walkSpeed: 3.5
+  sprintSpeed: 7.5
   groundDrag: 2
-  jumpForce: 6
+  jumpForce: 5
   jumpCoolDown: 0.25
   airMultiplier: 0.4
+  crouchSpeed: 1.5
+  crouchYScale: 0.5
+  sprintStaminaDrain: 5
+  jumpStaminaDrain: 10
+  slideStaminaDrain: 15
   jumpKey: 32
-  playerHeight: 20
+  sprintKey: 304
+  crouchKey: 306
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -563,6 +574,63 @@ MonoBehaviour:
   hasWrench: 0
   hasWheel: 0
   hasArmor: 0
+--- !u!114 &9182703871215733938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480234391398060116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc27cd17ff8094447a4afbfd23853a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 5779781432464516928}
+  playerobj: {fileID: 2945182399661733236}
+  maxSlideTime: 0.5
+  slideForce: 200
+  slideYScale: 0.5
+  slideKey: 99
+--- !u!114 &6781839467132604603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480234391398060116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 156948b94a8caf44dbe20c30696e6423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    bar: {fileID: 0}
+    maxVal: 100
+    currentVal: 100
+  stamina:
+    bar: {fileID: 0}
+    maxVal: 100
+    currentVal: 100
+  deathUI: {fileID: 0}
+  HealthRegenCooldown: 5
+  HealthRegenRate: 5
+  slideStaminaDrain: 15
+  StaminaRegenCooldown: 2
+  StaminaRegenRate: 10
+  StaminaExhaustedCooldown: 5
+--- !u!114 &5287567767856655836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480234391398060116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db532ea5c294e9a419db9b1a9885ff7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1508048970802672554
 GameObject:
   m_ObjectHideFlags: 0

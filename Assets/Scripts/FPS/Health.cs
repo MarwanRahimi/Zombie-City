@@ -89,8 +89,8 @@ namespace Unity.FPS.Game
             {
                 m_IsDead = true;
                 OnDie?.Invoke();
-
-                Destroy(gameObject);
+                GetComponent<Animator>().Play("Death");
+                Destroy(gameObject, 5.0f);
             }
         }
 
@@ -101,8 +101,10 @@ namespace Unity.FPS.Game
                 var characterStats = target.GetComponent<CharacterStats>();
                 if (characterStats != null)
                 {
+                    GetComponent<Animator>().Play("Attack");
                     characterStats.TakeDamage(Damage);
                     Debug.Log("Dealt " + Damage + " damage to " + target.name);
+
                     StartCoroutine(DamageCooldownRoutine());
                 }
                 else

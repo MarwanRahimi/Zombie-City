@@ -72,10 +72,10 @@ PrefabInstance:
       addedObject: {fileID: 6349839035546740716}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b49ef9da7b2a7244a2d76ac8257df37, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7711948735604133075}
+      addedObject: {fileID: 3685694416241251221}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5b49ef9da7b2a7244a2d76ac8257df37, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3685694416241251221}
+      addedObject: {fileID: 8143778632142963440}
   m_SourcePrefab: {fileID: 100100000, guid: 5b49ef9da7b2a7244a2d76ac8257df37, type: 3}
 --- !u!1 &4800202038459365761 stripped
 GameObject:
@@ -101,7 +101,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2566228
   m_Height: 2.4
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
@@ -114,12 +114,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 4800202038459365761}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 1
+  m_Radius: 0.25
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -127,19 +127,6 @@ NavMeshAgent:
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7711948735604133075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4800202038459365761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dfdd81001bbd10439f21137135628ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerReference: {fileID: 0}
 --- !u!114 &3685694416241251221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,5 +140,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
+  Damage: 25
+  DamageCooldown: 2
   CriticalHealthRatio: 0.3
   Invincible: 0
+--- !u!114 &8143778632142963440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4800202038459365761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dfdd81001bbd10439f21137135628ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReference: {fileID: 0}

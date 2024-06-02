@@ -71,11 +71,15 @@ public class PlayerMovementFPS : MonoBehaviour
         startYScale = transform.localScale.y;
 
         characterStats = GetComponent<CharacterStats>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         if (groundCheck != null)
         {
             grounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, whatIsGround);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16107,6 +16107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1816239243}
+  fovSlider: {fileID: 0}
+  playerCamera: {fileID: 0}
+  fovValueText: {fileID: 0}
 --- !u!4 &1400918436
 Transform:
   m_ObjectHideFlags: 0
@@ -24499,7 +24502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8143169435436614353, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.6542506
+      value: 0.086
       objectReference: {fileID: 0}
     - target: {fileID: 8143169435436614353, guid: cbaf7040e79a7eb41958b2994943f5b7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24952,6 +24955,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7113368792122786923, guid: 0233cc8095895694eb6900bb27faf901, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 4800202038459365761, guid: 478a8d27acfd6fa4db11e30225846240, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
