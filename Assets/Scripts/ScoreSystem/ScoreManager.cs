@@ -30,6 +30,13 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.SetInt(PLAYER_PREFS_KEY, 0);
             currentScore = 0;
         }
+        else
+        {
+            currentScore = PlayerPrefs.GetInt(PLAYER_PREFS_KEY);
+
+            if(scoreText)
+                scoreText.text = "Score: " + currentScore;
+        }
     }
 
 
