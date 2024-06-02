@@ -11,19 +11,18 @@ public class PauseMenu : MonoBehaviour
     public static bool isPause;
 
     [Header("FOV Control")]
-    public Slider fovSlider; // Reference to the slider
-    public Camera playerCamera; // Reference to the player camera
-    public TMP_Text fovValueText; // Reference to the TextMesh Pro text
+    public Slider fovSlider; 
+    public Camera playerCamera;
+    public TMP_Text fovValueText; 
 
-    private const string FovPrefKey = "PlayerFOV"; // Key to store the FOV value
+    private const string FovPrefKey = "PlayerFOV"; 
 
-    // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        isPause = false; // Ensure isPause is false when the game starts
+        isPause = false;
 
         // Load the FOV value from PlayerPrefs or use the default camera FOV if not set
         float savedFov = PlayerPrefs.GetFloat(FovPrefKey, playerCamera.fieldOfView);
@@ -49,7 +48,6 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -70,8 +68,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPause = true;
-        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
-        Cursor.visible = true; // Show the cursor
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true; 
     }
 
     public void ResumeGame()
@@ -79,14 +77,14 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPause = false;
-        Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
-        Cursor.visible = false; // Hide the cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false; 
     }
 
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        isPause = false; // Ensure isPause is reset when going to the main menu
+        isPause = false; 
         SceneManager.LoadScene("Main Menu");
     }
 

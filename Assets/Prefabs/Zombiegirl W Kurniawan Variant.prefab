@@ -161,6 +161,7 @@ MonoBehaviour:
   CriticalHealthRatio: 0.3
   zombieSound1: {fileID: 8300000, guid: 7310dbfbf9c23294db1acd1d835f425a, type: 3}
   zombieSound2: {fileID: 8300000, guid: 3339c64f57f2ba54d8b155ca94c0cc74, type: 3}
+  DeathSound: {fileID: 8300000, guid: ae2a0cb508304f549808f0472638539d, type: 3}
   Invincible: 0
   dropItems:
   - prefab: {fileID: 7832011642590570564, guid: 8048a53499f84b44cad5f1d0f980dd99, type: 3}

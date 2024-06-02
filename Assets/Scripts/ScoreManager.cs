@@ -13,6 +13,8 @@ public class ScoreManager : MonoBehaviour
     public int currentScore = 0;
 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI recordText;
+
 
     private void Awake()
     {
@@ -37,7 +39,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     // Load score from PlayerPrefs
-    void LoadScore()
+    public void LoadScore()
     {
         if (!PlayerPrefs.HasKey(PLAYER_PREFS_KEY))
         {
@@ -53,6 +55,11 @@ public class ScoreManager : MonoBehaviour
             {
                 scoreText.text = "Score: " + currentScore;
             }
+            if (recordText != null)
+            {
+                recordText.text = currentScore.ToString();
+                ResetScore();
+            }
         }
     }
 
@@ -67,7 +74,10 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = "Score: " + currentScore;
         }
-
+        if (recordText != null)
+        {
+            recordText.text = currentScore.ToString();
+        }
         PlayerPrefs.SetInt(PLAYER_PREFS_KEY, currentScore);
         PlayerPrefs.Save();
     }

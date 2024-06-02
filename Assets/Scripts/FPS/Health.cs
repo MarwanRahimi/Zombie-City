@@ -23,8 +23,13 @@ namespace Unity.FPS.Game
         public UnityAction<float> OnHealed;
         public UnityAction OnDie;
 
+        [SerializeField]
+        private AudioClip DeathSound;
+
         public float CurrentHealth { get; set; }
         public bool Invincible;
+
+        private AudioSource playerAudio;
 
         [System.Serializable]
         public class Item
@@ -32,7 +37,7 @@ namespace Unity.FPS.Game
             public GameObject prefab;
         }
 
-        public Item[] dropItems; 
+        public Item[] dropItems;
         private HashSet<GameObject> droppedItems = new HashSet<GameObject>();
 
         bool m_IsDead;
@@ -42,7 +47,7 @@ namespace Unity.FPS.Game
         {
             CurrentHealth = MaxHealth;
             audioSource = GetComponent<AudioSource>();
-            if (audioSource != null )
+            if (audioSource != null)
             {
                 PlayRandomZombieSound();
                 /*InvokeRepeating("PlayRandomZombieSound", 0f, 5f);*/
@@ -114,6 +119,7 @@ namespace Unity.FPS.Game
             if (CurrentHealth <= 0f)
             {
                 m_IsDead = true;
+                PlayDeathSound();
                 OnDie?.Invoke();
                 DropItems();
                 Destroy(gameObject);
@@ -185,9 +191,9 @@ namespace Unity.FPS.Game
             droppedItem.transform.position += new Vector3(0, 1, 0);
             droppedItems.Add(droppedItem);
         }
-    
 
-    public bool IsDead()
+
+        public bool IsDead()
         {
             return m_IsDead;
         }
@@ -196,7 +202,7 @@ namespace Unity.FPS.Game
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject switcher = GameObject.FindGameObjectWithTag("Switcher");
-            
+
             if (player == null)
             {
                 Debug.LogWarning("Player GameObject not found.");
@@ -266,6 +272,18 @@ namespace Unity.FPS.Game
             {
                 DealDamage(collision.gameObject);
             }
+        }
+
+        void PlayDeathSound()
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                playerAudio = player.GetComponent<AudioSource>();
+                playerAudio.clip = DeathSound;
+
+            }
+            playerAudio.Play();
         }
     }
 }

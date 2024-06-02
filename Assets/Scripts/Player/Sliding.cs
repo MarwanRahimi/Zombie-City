@@ -30,7 +30,7 @@ public class Sliding : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovementFPS>();
-        characterStats = GetComponent<CharacterStats>(); // Ensure this component is attached to the same GameObject
+        characterStats = GetComponent<CharacterStats>(); 
 
         startYScale = playerobj.localScale.y;
     }

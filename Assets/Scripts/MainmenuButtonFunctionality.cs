@@ -7,7 +7,10 @@ public class MainmenuButtonFunctionality : MonoBehaviour
 {
     public void StartGame()
     {
-        ScoreManager.Instance.ResetScore();
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.ResetScore();
+        }
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 

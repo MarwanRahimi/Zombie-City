@@ -1,3 +1,4 @@
+using Fungus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,14 +26,15 @@ public class DeathMenu : MonoBehaviour
         if (recordObj != null)
         {
             _recordText = recordObj.GetComponent<TextMeshProUGUI>();
-            if (_recordText.text != null)
+            if (_recordText != null)
             {
                 _recordText.text = scoreManager.currentScore.ToString();
+                scoreManager.LoadScore();
+                scoreManager.ResetScore();
             }
         }
         scoreManager.ResetScore();
         Time.timeScale = 0f;
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -63,7 +65,6 @@ public class DeathMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        // Quit the application
         Application.Quit();
     }
 }

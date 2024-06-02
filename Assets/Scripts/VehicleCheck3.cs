@@ -15,6 +15,10 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
     private AudioSource audioSource;
     [SerializeField] private VideoPlayer player;
 
+    private PlayerMovementFPS playerController;
+    private Weapon playerShooting;
+    private PauseMenu pauseMenu;
+
     void Start()
     {
         if (_objectiveText != null)
@@ -23,6 +27,10 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
         }
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
+
+        playerController = FindObjectOfType<PlayerMovementFPS>();
+        playerShooting = FindObjectOfType<Weapon>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     public void UpdatePrompt()
@@ -48,11 +56,30 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
         var inventory = PlayerInventory.Instance;
         if (inventory.hasCure && EnemySpawner.Instance.remainingEnemies == 0)
         {
-
             player.transform.parent.gameObject.SetActive(true);
-
             player.Play();
-            Invoke("creditScene", 80f);
+
+            Time.timeScale = 0f;
+
+            if (playerController != null)
+            {
+                playerController.enabled = false;
+            }
+
+            if (playerShooting != null)
+            {
+                playerShooting.enabled = false;
+            }
+
+            if (pauseMenu != null)
+            {
+                pauseMenu.enabled = false;
+            }
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            StartCoroutine(WaitAndLoadCredits(80f));
             return true;
         }
         else
@@ -66,12 +93,32 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
         }
     }
 
-    public void creditScene()
+    private IEnumerator WaitAndLoadCredits(float waitTime)
     {
+        yield return new WaitForSecondsRealtime(waitTime);
+
+        player.transform.parent.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+        }
+
+        if (playerShooting != null)
+        {
+            playerShooting.enabled = true;
+        }
+
+        if (pauseMenu != null)
+        {
+            pauseMenu.enabled = true;
+        }
+
         SceneManager.LoadScene("Credit");
     }
 
-    private void UpdateObjectiveText()
+    public void UpdateObjectiveText()
     {
         var inventory = PlayerInventory.Instance;
 

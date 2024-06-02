@@ -155,12 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847d31ad71dfce243913d21041448db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 200
+  MaxHealth: 150
   Damage: 30
   DamageCooldown: 2
   CriticalHealthRatio: 0.3
   zombieSound1: {fileID: 8300000, guid: 7310dbfbf9c23294db1acd1d835f425a, type: 3}
   zombieSound2: {fileID: 8300000, guid: 3339c64f57f2ba54d8b155ca94c0cc74, type: 3}
+  DeathSound: {fileID: 8300000, guid: ae2a0cb508304f549808f0472638539d, type: 3}
   Invincible: 0
   dropItems:
   - prefab: {fileID: 0}
