@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 
 public class Vehicle : MonoBehaviour, IInteractable
 {
@@ -10,6 +11,7 @@ public class Vehicle : MonoBehaviour, IInteractable
     [SerializeField] private bool hasUsedWrench = false;
     [SerializeField] private bool hasUsedWheel = false;
     [SerializeField] private bool isFixed = false;
+    private TextMeshProUGUI _objectiveText;
     public GameObject wheelPrefab;
     public GameObject armorPrefab;
     public AudioClip failedInteractionClip;
@@ -22,6 +24,15 @@ public class Vehicle : MonoBehaviour, IInteractable
         if (player != null)
         {
             audioSource = player.GetComponent<AudioSource>();
+        }
+        GameObject objectiveObject = GameObject.FindGameObjectWithTag("Objective");
+        if (objectiveObject != null)
+        {
+            _objectiveText = objectiveObject.GetComponent<TextMeshProUGUI>();
+            if(_objectiveText.text == "") 
+            { 
+            _objectiveText.text = "Current Objective: Repair the vehicle";
+            }
         }
     }
 
@@ -102,11 +113,11 @@ public class Vehicle : MonoBehaviour, IInteractable
         {
             _currPrompt = "Press F to use Wrench";
         }
-        else if (!hasUsedWheel && PlayerInventory.Instance.hasWheel)
+        else if (!hasUsedWheel && PlayerInventory.Instance.hasWheel && hasUsedWrench)
         {
             _currPrompt = "Press F to use Wheel";
         }
-        else if (!isFixed && PlayerInventory.Instance.hasArmor)
+        else if (!isFixed && PlayerInventory.Instance.hasArmor && hasUsedWheel && hasUsedWrench)
         {
             _currPrompt = "Press F to use Armor";
         }
@@ -114,11 +125,11 @@ public class Vehicle : MonoBehaviour, IInteractable
         {
             _currPrompt = "Find wrench to fix vehicle";
         }
-        else if (!hasUsedWheel && !PlayerInventory.Instance.hasWheel)
+        else if (!hasUsedWheel && !PlayerInventory.Instance.hasWheel && hasUsedWrench)
         {
             _currPrompt = "Find wheel to fix vehicle";
         }
-        else if (!isFixed && !PlayerInventory.Instance.hasArmor)
+        else if (!isFixed && !PlayerInventory.Instance.hasArmor && hasUsedWheel && hasUsedWrench)
         {
             _currPrompt = "Find armor to fix vehicle";
         }

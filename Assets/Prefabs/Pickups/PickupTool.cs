@@ -56,11 +56,7 @@ public class ToolItem : MonoBehaviour
                 break;
             case "armor":
                 inventory.hasArmor = true;
-                if (inventory.hasWheel)
-                {
-
-                    UpdateObjectiveText("Return to the vehicle!");
-                }
+                UpdateObjectiveText("Use tools on the vehicle!");
                 break;
             case "gas":
                 inventory.hasGas = true;
@@ -70,6 +66,9 @@ public class ToolItem : MonoBehaviour
                 break;
             case "food":
                 inventory.hasSupplies = true;
+                break;
+            case "key":
+                inventory.hasKey = true;
                 break;
             default:
                 Debug.LogWarning($"Unknown tool type: {toolType}");
@@ -82,10 +81,6 @@ public class ToolItem : MonoBehaviour
         if (_objectiveText != null)
         {
             _objectiveText.text = message;
-        }
-        else
-        {
-            Debug.LogWarning("Objective TextMeshProUGUI is not assigned.");
         }
     }
 
