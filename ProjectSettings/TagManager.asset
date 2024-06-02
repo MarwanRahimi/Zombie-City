@@ -8,6 +8,9 @@ TagManager:
   - Switcher
   - Knife
   - Objective
+  - Score
+  - Image
+  - Record
   layers:
   - Default
   - TransparentFX

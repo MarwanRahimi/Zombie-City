@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class VehicleCheck3 : MonoBehaviour, IInteractable
 {
@@ -12,6 +13,7 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
 
     public AudioClip failedInteractionClip;
     private AudioSource audioSource;
+    [SerializeField] private VideoPlayer player;
 
     void Start()
     {
@@ -31,13 +33,13 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
         {
             _currPrompt = "I need to find the cure.";
         }
+        else if (EnemySpawner.Instance.remainingEnemies == 0)
+        {
+            _currPrompt = "Proceed to next area";
+        }
         else if (EnemySpawner.Instance.remainingEnemies <= 25)
         {
             _currPrompt = "I need to kill all remaining zombies!";
-        }
-        else
-        {
-            _currPrompt = "Proceed to next area";
         }
     }
 
@@ -46,7 +48,11 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
         var inventory = PlayerInventory.Instance;
         if (inventory.hasCure && EnemySpawner.Instance.remainingEnemies == 0)
         {
-            
+
+            player.transform.parent.gameObject.SetActive(true);
+
+            player.Play();
+            Invoke("creditScene", 80f);
             return true;
         }
         else
@@ -58,6 +64,11 @@ public class VehicleCheck3 : MonoBehaviour, IInteractable
             }
             return false;
         }
+    }
+
+    public void creditScene()
+    {
+        SceneManager.LoadScene("Credit");
     }
 
     private void UpdateObjectiveText()

@@ -16,6 +16,7 @@ public class Vehicle : MonoBehaviour, IInteractable
     public GameObject armorPrefab;
     public AudioClip failedInteractionClip;
     public AudioClip successfulInteractionClip;
+    public AudioClip carStart;
     private AudioSource audioSource;
 
     void Start()
@@ -76,7 +77,7 @@ public class Vehicle : MonoBehaviour, IInteractable
         else if (isFixed)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-
+            audioSource.PlayOneShot(carStart);
             if (player != null)
             {
                 Destroy(player);

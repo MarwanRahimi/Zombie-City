@@ -1,31 +1,47 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DeathMenu : MonoBehaviour
 {
     [SerializeField] private GameObject deathMenuUI;
+    private TextMeshProUGUI _recordText;
+
+    private ScoreManager scoreManager;
 
     private void Start()
     {
         // Make the cursor visible
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     public void ShowDeathMenu()
     {
         // Show the death menu UI
         deathMenuUI.SetActive(true);
-        // Pause the game
+        GameObject recordObj = GameObject.FindGameObjectWithTag("Record");
+        if (recordObj != null)
+        {
+            _recordText = recordObj.GetComponent<TextMeshProUGUI>();
+            if (_recordText.text != null)
+            {
+                _recordText.text = scoreManager.currentScore.ToString();
+            }
+        }
+        scoreManager.ResetScore();
         Time.timeScale = 0f;
-        // Make the cursor visible and unlock it
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     public void Retry()
     {
-        // Reload the current scene
+        scoreManager.ResetScore();
+        scoreManager.scoreText.text = "0";
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -33,12 +49,11 @@ public class DeathMenu : MonoBehaviour
         {
             Destroy(player);
         }
-        // Resume the game
         Time.timeScale = 1f;
-        // Hide the cursor again
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
 
     public void GoToMainMenu()
     {

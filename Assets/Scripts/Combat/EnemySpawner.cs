@@ -76,6 +76,7 @@ public class EnemySpawner : MonoBehaviour
         remainingEnemies--;
         Debug.Log("Remaining Enemies: " + remainingEnemies);
 
+        ScoreManager.Instance.AddScore(Random.Range(15, 20));
         // Notify the VehicleCheck3 component
         if (vehicleCheck != null)
         {

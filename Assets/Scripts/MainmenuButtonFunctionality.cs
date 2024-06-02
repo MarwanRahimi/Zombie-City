@@ -7,12 +7,15 @@ public class MainmenuButtonFunctionality : MonoBehaviour
 {
     public void StartGame()
     {
+        ScoreManager.Instance.ResetScore();
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player != null)
         {
             Destroy(player);
         }
+
         // change scene to the game scene
         SceneManager.LoadScene("OpeningCutScene");
     }
@@ -31,6 +34,6 @@ public class MainmenuButtonFunctionality : MonoBehaviour
 
     public void ExitGame()
     {
-            Application.Quit();
+        Application.Quit();
     }
 }

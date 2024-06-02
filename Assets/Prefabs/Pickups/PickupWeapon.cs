@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class PickupWeapon : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class PickupWeapon : MonoBehaviour
     private Camera FPCamera;
     private Ammo ammoSlot;
     private TextMeshProUGUI ammoText;
+    private Image image;
 
     private void Start()
     {
@@ -76,6 +80,19 @@ public class PickupWeapon : MonoBehaviour
         {
             Debug.LogError("GameObject with tag 'Ammo' not found in the scene.");
         }
+        GameObject weaponImage = GameObject.FindGameObjectWithTag("Image");
+        if (weaponImage != null)
+        {
+            image = weaponImage.GetComponent<Image>();
+            if (image == null)
+            {
+                Debug.LogError("Image component not found on imageObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with tag 'Image' not found in the scene.");
+        }
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -125,6 +142,7 @@ public class PickupWeapon : MonoBehaviour
                 weaponScript.FPCamera = FPCamera;
                 weaponScript.ammoSlot = ammoSlot;
                 weaponScript.ammoText = ammoText;
+                weaponScript.weaponImage = image;
             }
             else
             {

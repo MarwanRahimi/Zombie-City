@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 using Unity.FPS.Game;
 
 public class Weapon : MonoBehaviour
@@ -25,6 +26,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float meleeDamage = 25f;
     [SerializeField] AudioClip meleeSFX;
     [SerializeField][Range(0, 1)] float meleeSFXVolume = 1f;
+    [SerializeField] public Image weaponImage; // Ensure this is assigned in the Inspector
 
     bool canShoot = true;
     bool isMeleeing = false;
@@ -33,6 +35,9 @@ public class Weapon : MonoBehaviour
     // Cached references
     WeaponSwitcher myWeaponSwitcher = null;
     AudioSource myAudioSource;
+
+    // Sprites for different weapon types
+    Dictionary<AmmoType, Sprite> weaponSprites;
 
     public AmmoType GetAmmoType()
     {
@@ -59,6 +64,9 @@ public class Weapon : MonoBehaviour
         {
             Debug.LogError("Knife GameObject not found.");
         }
+
+        GetWeaponImage();
+        UpdateWeaponUI();
     }
 
     void Update()
@@ -71,8 +79,9 @@ public class Weapon : MonoBehaviour
         {
             MeleeAttack();
         }
-
+        GetWeaponImage();
         DisplayAmmo();
+        UpdateWeaponUI();
     }
 
     void DisplayAmmo()
@@ -161,7 +170,6 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
     void PlayMuzzleFlash()
     {
         if (muzzleFlash != null)
@@ -203,6 +211,35 @@ public class Weapon : MonoBehaviour
         {
             GameObject zombieHitEffectObject = Instantiate(zombieHitEffect, hit.point, Quaternion.LookRotation(hit.normal), hit.transform);
             Destroy(zombieHitEffectObject, delayDestroyZombieHitEffect);
+        }
+    }
+
+    public void GetWeaponImage()
+    {
+        // Initialize weapon sprites dictionary
+        weaponSprites = new Dictionary<AmmoType, Sprite>()
+        {
+            { AmmoType.PistolBullets, Resources.Load<Sprite>("Images/pistol") },
+            { AmmoType.MPBullets, Resources.Load<Sprite>("Images/mp7") },
+            { AmmoType.AKMBullets, Resources.Load<Sprite>("Images/akm") },
+        };
+    }
+
+    public void UpdateWeaponUI()
+    {
+        if (weaponImage == null)
+        {
+            Debug.LogError("Weapon Image reference is not assigned.");
+            return;
+        }
+
+        if (weaponSprites.ContainsKey(ammoType))
+        {
+            weaponImage.sprite = weaponSprites[ammoType];
+        }
+        else
+        {
+            Debug.LogError("No sprite found for the current weapon type.");
         }
     }
 }
