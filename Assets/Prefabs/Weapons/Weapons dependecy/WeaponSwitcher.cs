@@ -104,7 +104,6 @@ public class WeaponSwitcher : MonoBehaviour
         Weapon currentWeaponComponent = transform.GetChild(currentWeapon).GetComponent<Weapon>();
         if (currentWeaponComponent != null)
         {
-            Debug.LogWarning($"{currentWeapon}.");
             return currentWeaponComponent.GetAmmoType();
 
         }

@@ -37,7 +37,6 @@ namespace Unity.FPS.Game
         private int nextItemIndex = 0;
 
         private int[] dropAtCounts = new int[] { 3, 7, 11, 14 }; 
-        private int dropIndex = 0;
 
         bool m_IsDead;
         bool canDealDamage = true; // to track cooldown state
