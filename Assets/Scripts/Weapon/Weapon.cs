@@ -41,6 +41,8 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+
+
         myWeaponSwitcher = GetComponentInParent<WeaponSwitcher>();
         myAudioSource = GetComponent<AudioSource>();
 
@@ -59,10 +61,22 @@ public class Weapon : MonoBehaviour
         {
             Debug.LogError("Knife GameObject not found.");
         }
+
+        StartCoroutine(HideCursor());
+    }
+    private IEnumerator HideCursor()
+    {
+        yield return new WaitForSeconds(2);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     void Update()
     {
+
+
         if (Input.GetMouseButton(0) && ammoSlot.GetCurrentAmmoAmount(ammoType) > 0 && canShoot)
         {
             Shoot();
